@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Kraken Concrete Coatings — Premium Epoxy & Flake Systems | Bozeman, MT</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          dark: '#0a0a0f',
+          gold: '#C9A84C',
+          steel: '#4A7FA5',
+          pearl: '#F0EDE8',
+        },
+        fontFamily: {
+          bebas: ['Bebas Neue', 'cursive'],
+          inter: ['Inter', 'sans-serif'],
+        }
+      }
+    }
+  }
+</script>
+<style>
+  :root {
+    --dark: #0a0a0f;
+    --gold: #C9A84C;
+    --steel: #4A7FA5;
+    --pearl: #F0EDE8;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--dark); color: var(--pearl); font-family: 'Inter', sans-serif; overflow-x: hidden; }
+
+  /* ── LOADER ── */
+  #loader {
+    position: fixed; inset: 0; background: #000; z-index: 9999;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 16px;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+  }
+  #loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+  .loader-logo {
+    font-family: 'Bebas Neue', cursive;
+    font-size: clamp(3rem, 10vw, 7rem);
+    letter-spacing: 0.15em;
+    color: transparent;
+    background: linear-gradient(135deg, #C9A84C 0%, #FFD700 50%, #C9A84C 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: revealLogo 1.2s ease forwards;
+    opacity: 0;
+  }
+  .loader-bar {
+    width: 200px; height: 2px; background: #1a1a1a; border-radius: 2px; overflow: hidden;
+  }
+  .loader-bar-fill {
+    height: 100%; background: var(--gold); width: 0;
+    animation: loadBar 1.4s ease forwards;
+  }
+  @keyframes revealLogo {
+    0% { opacity: 0; transform: translateY(20px); }
+    40% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes loadBar {
+    0% { width: 0; }
+    100% { width: 100%; }
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(10,10,15,0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(201,168,76,0.15);
+    height: 72px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 clamp(1rem, 5vw, 3rem);
+    transition: background 0.3s;
+  }
+  .nav-logo {
+    display: flex; align-items: center; gap: 10px;
+    font-family: 'Bebas Neue', cursive; font-size: 1.8rem;
+    letter-spacing: 0.1em; color: var(--gold); text-decoration: none;
+  }
+  .nav-links { display: flex; align-items: center; gap: 2rem; }
+  .nav-links a {
+    color: var(--pearl); text-decoration: none; font-size: 0.875rem;
+    font-weight: 500; letter-spacing: 0.05em; opacity: 0.8;
+    transition: opacity 0.2s, color 0.2s;
+  }
+  .nav-links a:hover { opacity: 1; color: var(--gold); }
+  .btn-primary {
+    background: var(--gold); color: #000; font-weight: 700;
+    padding: 0.6rem 1.4rem; border-radius: 6px; text-decoration: none;
+    font-size: 0.875rem; letter-spacing: 0.05em;
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    display: inline-block;
+  }
+  .btn-primary:hover {
+    background: #FFD700; transform: translateY(-1px);
+    box-shadow: 0 4px 20px rgba(201,168,76,0.4);
+  }
+  .btn-secondary {
+    border: 1px solid var(--gold); color: var(--gold); font-weight: 600;
+    padding: 0.6rem 1.4rem; border-radius: 6px; text-decoration: none;
+    font-size: 0.875rem; letter-spacing: 0.05em;
+    transition: background 0.2s, color 0.2s;
+    display: inline-block;
+  }
+  .btn-secondary:hover { background: var(--gold); color: #000; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+  .hamburger span { width: 24px; height: 2px; background: var(--pearl); transition: 0.3s; }
+
+  /* ── HERO SCROLL-JACK ── */
+  #hero-scroll-container {
+    height: 300vh;
+    position: relative;
+  }
+  #hero-sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Before/After Layer */
+  #hero-ba {
+    position: absolute; inset: 0;
+    display: flex;
+    transition: opacity 0.3s ease;
+  }
+  #hero-before, #hero-after {
+    position: absolute; inset: 0;
+    background-size: cover; background-position: center;
+  }
+  #hero-before {
+    background: linear-gradient(135deg, #1a0f0f 0%, #2d1a1a 40%, #3d2020 100%);
+  }
+  #hero-after {
+    background: linear-gradient(135deg, #0a1628 0%, #1a2d4a 40%, #0d2238 70%, #1a3a2a 100%);
+  }
+
+  /* Crack texture for BEFORE */
+  #hero-before::after {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: 
+      repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(0,0,0,0.15) 40px, rgba(0,0,0,0.15) 41px),
+      repeating-linear-gradient(-45deg, transparent, transparent 60px, rgba(0,0,0,0.1) 60px, rgba(0,0,0,0.1) 61px);
+    opacity: 0.6;
+  }
+
+  /* Shimmer for AFTER */
+  #hero-after::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(105deg, transparent 40%, rgba(201,168,76,0.08) 50%, transparent 60%);
+    animation: shimmer 3s ease-in-out infinite;
+  }
+  @keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+
+  /* Wipe clip */
+  #hero-after { clip-path: inset(0 100% 0 0); }
+
+  /* Wipe divider line */
+  #wipe-line {
+    position: absolute; top: 0; bottom: 0; width: 3px;
+    background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+    box-shadow: 0 0 20px rgba(201,168,76,0.8), 0 0 40px rgba(201,168,76,0.4);
+    left: 0%;
+    z-index: 10;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  #wipe-handle {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--gold); display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 0 20px rgba(201,168,76,0.6);
+  }
+  #wipe-handle svg { width: 20px; height: 20px; color: #000; }
+
+  /* Before/After labels */
+  .ba-label {
+    position: absolute; bottom: 2rem; padding: 0.4rem 1rem;
+    font-family: 'Bebas Neue', cursive; font-size: 1.1rem; letter-spacing: 0.15em;
+    border-radius: 4px; z-index: 5;
+  }
+  .ba-label-before { left: 2rem; background: rgba(0,0,0,0.6); color: #999; border: 1px solid #444; }
+  .ba-label-after { right: 2rem; background: rgba(201,168,76,0.2); color: var(--gold); border: 1px solid var(--gold); }
+
+  /* Video layer */
+  #hero-video-layer {
+    position: absolute; inset: 0; opacity: 0;
+    transition: opacity 0.8s ease;
+    background: linear-gradient(135deg, #050510 0%, #0a1628 50%, #050510 100%);
+    overflow: hidden;
+  }
+  /* Simulated epoxy video with animated gradient */
+  #hero-video-layer::before {
+    content: '';
+    position: absolute; inset: -50%;
+    background: conic-gradient(from 0deg at 50% 50%,
+      #0a0a0f 0deg, #1a2d4a 60deg, #C9A84C 90deg,
+      #1a2d4a 120deg, #0a0a0f 180deg, #1a3a2a 240deg,
+      #C9A84C 270deg, #1a2d4a 300deg, #0a0a0f 360deg);
+    animation: rotateConic 12s linear infinite;
+    opacity: 0.15;
+    filter: blur(60px);
+  }
+  #hero-video-layer::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: 
+      radial-gradient(ellipse 80% 40% at 30% 60%, rgba(201,168,76,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 30% at 70% 40%, rgba(74,127,165,0.1) 0%, transparent 50%);
+    animation: pulseGlow 4s ease-in-out infinite alternate;
+  }
+  @keyframes rotateConic { to { transform: rotate(360deg); } }
+  @keyframes pulseGlow {
+    0% { opacity: 0.6; }
+    100% { opacity: 1; }
+  }
+
+  /* Floating flake particles */
+  .flake-container {
+    position: absolute; inset: 0; overflow: hidden; z-index: 1;
+  }
+  .flake {
+    position: absolute; width: 4px; height: 4px; border-radius: 1px;
+    background: var(--gold); opacity: 0;
+    animation: floatFlake var(--dur, 6s) var(--delay, 0s) ease-in-out infinite;
+  }
+  @keyframes floatFlake {
+    0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.6; }
+    90% { opacity: 0.3; }
+    100% { transform: translateY(-20px) rotate(360deg); opacity: 0; }
+  }
+
+  /* Hero overlay content */
+  #hero-content {
+    position: absolute; inset: 0; z-index: 20;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 2rem;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.5) 100%);
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(201,168,76,0.15); border: 1px solid rgba(201,168,76,0.4);
+    border-radius: 100px; padding: 0.4rem 1rem; margin-bottom: 1.5rem;
+    font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; color: var(--gold);
+  }
+  .hero-badge::before { content: '●'; font-size: 0.5rem; animation: blink 1.5s infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+  .hero-h1 {
+    font-family: 'Bebas Neue', cursive;
+    font-size: clamp(3rem, 8vw, 6.5rem);
+    line-height: 1.0; letter-spacing: 0.05em;
+    color: var(--pearl);
+    text-shadow: 0 2px 40px rgba(0,0,0,0.8);
+    margin-bottom: 1.5rem;
+  }
+  .hero-h1 span { color: var(--gold); }
+  .hero-sub {
+    max-width: 640px; font-size: clamp(1rem, 2vw, 1.15rem);
+    line-height: 1.7; color: rgba(240,237,232,0.85);
+    text-shadow: 0 1px 20px rgba(0,0,0,0.9);
+    margin-bottom: 2.5rem;
+  }
+  .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+
+  /* Scroll indicator */
+  .scroll-indicator {
+    position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 8px; z-index: 20;
+    opacity: 0.7; animation: fadeUpDown 2s ease-in-out infinite;
+  }
+  .scroll-indicator span { font-size: 0.7rem; letter-spacing: 0.15em; color: var(--gold); }
+  .scroll-mouse {
+    width: 24px; height: 38px; border: 2px solid rgba(201,168,76,0.6);
+    border-radius: 12px; display: flex; justify-content: center; padding-top: 6px;
+  }
+  .scroll-mouse::after {
+    content: ''; width: 4px; height: 8px; background: var(--gold);
+    border-radius: 2px; animation: scrollDot 2s ease-in-out infinite;
+  }
+  @keyframes scrollDot { 0%,100%{transform:translateY(0);opacity:1} 50%{transform:translateY(10px);opacity:0.3} }
+  @keyframes fadeUpDown { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
+
+  /* ── SECTIONS ── */
+  section { padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 5vw, 3rem); }
+  .section-label {
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.2em;
+    color: var(--gold); text-transform: uppercase; margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', cursive;
+    font-size: clamp(2.5rem, 5vw, 4rem); letter-spacing: 0.05em;
+    line-height: 1.1; color: var(--pearl); margin-bottom: 1.5rem;
+  }
+  .section-sub {
+    color: rgba(240,237,232,0.7); line-height: 1.8; max-width: 640px;
+    font-size: 1.05rem;
+  }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .gold-line {
+    width: 60px; height: 3px; background: var(--gold); border-radius: 2px; margin-bottom: 2rem;
+  }
+
+  /* ── COLOR PICKER ── */
+  .color-tab {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(201,168,76,0.2);
+    color: rgba(240,237,232,0.6); padding: 0.6rem 1.4rem; border-radius: 100px;
+    font-size: 0.875rem; font-weight: 600; letter-spacing: 0.05em; cursor: pointer;
+    transition: all 0.2s; font-family: 'Inter', sans-serif;
+  }
+  .color-tab:hover { border-color: rgba(201,168,76,0.5); color: var(--pearl); }
+  .color-tab.active { background: var(--gold); border-color: var(--gold); color: #000; }
+  .color-panel { display: block; }
+  .color-panel.hidden { display: none; }
+  .color-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 1rem;
+  }
+  .color-chip {
+    cursor: pointer; text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border-radius: 10px; overflow: hidden;
+    border: 2px solid transparent;
+  }
+  .color-chip:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+  .color-chip.selected { border-color: var(--gold); box-shadow: 0 0 20px rgba(201,168,76,0.4); }
+  .chip-swatch {
+    width: 100%; height: 70px; border-radius: 8px 8px 0 0;
+    background: linear-gradient(135deg, var(--c1, #444), var(--c2, #888));
+    position: relative; overflow: hidden;
+  }
+  .chip-swatch::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.15) 50%, transparent 70%);
+    animation: chipShimmer 3s ease-in-out infinite;
+    animation-delay: var(--shimmer-delay, 0s);
+  }
+  @keyframes chipShimmer { 0%,100%{opacity:0} 50%{opacity:1} }
+  .color-chip span {
+    display: block; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.05em;
+    color: rgba(240,237,232,0.7); padding: 0.4rem 0.3rem;
+    background: rgba(255,255,255,0.04); border-radius: 0 0 8px 8px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+
+  /* ── BENEFITS ── */
+  #benefits { background: linear-gradient(to bottom, #0a0a0f, #0d0d1a); }
+  .benefit-card {
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(201,168,76,0.15);
+    border-radius: 16px; padding: 2.5rem 2rem;
+    transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+  }
+  .benefit-card:hover {
+    border-color: rgba(201,168,76,0.5);
+    box-shadow: 0 0 40px rgba(201,168,76,0.1);
+    transform: translateY(-4px);
+  }
+  .benefit-icon {
+    width: 56px; height: 56px; border-radius: 12px;
+    background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.3);
+    display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+  }
+  .benefit-card h3 {
+    font-family: 'Bebas Neue', cursive; font-size: 1.5rem; letter-spacing: 0.08em;
+    color: var(--pearl); margin-bottom: 0.75rem;
+  }
+  .benefit-card p { color: rgba(240,237,232,0.65); line-height: 1.7; font-size: 0.95rem; }
+
+  /* ── SERVICES ── */
+  #services { background: #0a0a0f; }
+  .service-card {
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(74,127,165,0.2);
+    border-radius: 20px; padding: 2.5rem 2rem; cursor: default;
+    transition: transform 0.2s ease, box-shadow 0.3s ease, border-color 0.3s;
+    transform-style: preserve-3d;
+  }
+  .service-card:hover {
+    box-shadow: 0 20px 60px rgba(74,127,165,0.15), 0 0 40px rgba(201,168,76,0.08);
+    border-color: rgba(201,168,76,0.3);
+  }
+  .service-num {
+    font-family: 'Bebas Neue', cursive; font-size: 4rem; color: rgba(201,168,76,0.1);
+    line-height: 1; margin-bottom: 1rem; letter-spacing: 0.05em;
+  }
+  .service-card h3 {
+    font-family: 'Bebas Neue', cursive; font-size: 1.8rem; letter-spacing: 0.08em;
+    color: var(--pearl); margin-bottom: 1rem;
+  }
+  .service-card p { color: rgba(240,237,232,0.65); line-height: 1.7; font-size: 0.95rem; margin-bottom: 1.5rem; }
+  .service-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .service-tag {
+    font-size: 0.75rem; padding: 0.25rem 0.75rem; border-radius: 100px;
+    background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.25);
+    color: var(--gold); font-weight: 600; letter-spacing: 0.05em;
+  }
+
+  /* ── REVIEWS ── */
+  #reviews { background: linear-gradient(to bottom, #0a0a0f, #0a0d14); overflow: hidden; }
+  .reviews-track-wrapper { overflow: hidden; position: relative; }
+  .reviews-track-wrapper::before,
+  .reviews-track-wrapper::after {
+    content: ''; position: absolute; top: 0; bottom: 0; width: 100px; z-index: 5;
+    pointer-events: none;
+  }
+  .reviews-track-wrapper::before { left: 0; background: linear-gradient(to right, #0a0a0f, transparent); }
+  .reviews-track-wrapper::after { right: 0; background: linear-gradient(to left, #0a0a0f, transparent); }
+  .reviews-track {
+    display: flex; gap: 1.5rem;
+    animation: scrollReviews 30s linear infinite;
+    width: max-content;
+  }
+  .reviews-track:hover { animation-play-state: paused; }
+  @keyframes scrollReviews {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .review-card {
+    flex-shrink: 0; width: 360px; background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(201,168,76,0.12); border-radius: 16px; padding: 2rem;
+  }
+  .review-stars { color: var(--gold); font-size: 1.1rem; margin-bottom: 1rem; letter-spacing: 0.1em; }
+  .review-text {
+    color: rgba(240,237,232,0.8); line-height: 1.7; font-size: 0.95rem;
+    margin-bottom: 1.5rem; font-style: italic;
+  }
+  .review-author { display: flex; align-items: center; gap: 0.75rem; }
+  .review-avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold), var(--steel));
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 0.875rem; color: #000;
+  }
+  .review-name { font-weight: 600; font-size: 0.875rem; color: var(--pearl); }
+  .review-role { font-size: 0.75rem; color: rgba(240,237,232,0.5); }
+
+  /* ── FAQ ── */
+  #faq { background: #0a0a0f; }
+  .faq-item {
+    border-bottom: 1px solid rgba(201,168,76,0.1);
+  }
+  .faq-btn {
+    width: 100%; text-align: left; background: none; border: none;
+    padding: 1.5rem 0; cursor: pointer; display: flex; align-items: center;
+    justify-content: space-between; gap: 1rem;
+    font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 600;
+    color: var(--pearl); transition: color 0.2s;
+  }
+  .faq-btn:hover { color: var(--gold); }
+  .faq-icon {
+    flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.4);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; color: var(--gold); transition: transform 0.3s, background 0.2s;
+  }
+  .faq-item.open .faq-icon { transform: rotate(45deg); background: rgba(201,168,76,0.1); }
+  .faq-answer {
+    overflow: hidden; max-height: 0;
+    transition: max-height 0.4s ease, padding 0.3s ease;
+    color: rgba(240,237,232,0.7); line-height: 1.8; font-size: 0.95rem;
+  }
+  .faq-item.open .faq-answer { max-height: 200px; padding-bottom: 1.5rem; }
+
+  /* ── CONTACT ── */
+  #contact { background: linear-gradient(to bottom, #0a0d14, #0a0a0f); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+  .contact-form input, .contact-form select, .contact-form textarea {
+    width: 100%; background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(201,168,76,0.2); border-radius: 10px;
+    padding: 0.875rem 1rem; color: var(--pearl); font-family: 'Inter', sans-serif;
+    font-size: 0.95rem; outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+    margin-bottom: 1rem;
+  }
+  .contact-form input:focus, .contact-form select:focus, .contact-form textarea:focus {
+    border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201,168,76,0.1);
+  }
+  .contact-form select { appearance: none; cursor: pointer; }
+  .contact-form select option { background: #1a1a2e; }
+  .contact-form textarea { resize: vertical; min-height: 140px; }
+  .contact-info-item {
+    display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 2rem;
+  }
+  .contact-info-icon {
+    width: 44px; height: 44px; border-radius: 10px; flex-shrink: 0;
+    background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.25);
+    display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+  }
+  .contact-info-text { font-size: 0.9rem; }
+  .contact-info-text strong { display: block; color: var(--pearl); margin-bottom: 0.25rem; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; }
+  .contact-info-text a { color: rgba(240,237,232,0.7); text-decoration: none; transition: color 0.2s; }
+  .contact-info-text a:hover { color: var(--gold); }
+  .map-placeholder {
+    border-radius: 12px; overflow: hidden; border: 1px solid rgba(201,168,76,0.15);
+    background: rgba(255,255,255,0.03); height: 200px;
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(240,237,232,0.4); font-size: 0.875rem; letter-spacing: 0.05em;
+    margin-top: 2rem;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #060608; border-top: 1px solid rgba(201,168,76,0.1);
+    padding: 3rem clamp(1.5rem, 5vw, 3rem);
+  }
+  .footer-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; flex-wrap: wrap; gap: 2rem;
+    justify-content: space-between; align-items: center;
+  }
+  .footer-logo {
+    font-family: 'Bebas Neue', cursive; font-size: 1.8rem;
+    letter-spacing: 0.1em; color: var(--gold);
+  }
+  .footer-links { display: flex; gap: 2rem; flex-wrap: wrap; }
+  .footer-links a {
+    color: rgba(240,237,232,0.5); text-decoration: none; font-size: 0.875rem;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-social { display: flex; gap: 0.75rem; }
+  .social-btn {
+    width: 40px; height: 40px; border-radius: 8px;
+    border: 1px solid rgba(201,168,76,0.2); display: flex; align-items: center; justify-content: center;
+    color: rgba(240,237,232,0.5); text-decoration: none; font-size: 0.8rem;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+  }
+  .social-btn:hover { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.08); }
+  .footer-copy {
+    max-width: 1200px; margin: 2rem auto 0; padding-top: 2rem;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    text-align: center; font-size: 0.8rem; color: rgba(240,237,232,0.35);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .nav-links.mobile-open {
+      display: flex; flex-direction: column;
+      position: fixed; inset: 72px 0 0; background: rgba(10,10,15,0.98);
+      align-items: center; justify-content: center; gap: 2rem; z-index: 90;
+    }
+    .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .hero-h1 { font-size: clamp(2.5rem, 10vw, 4rem); }
+  }
+
+  /* Animate on scroll */
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-logo">KRAKEN</div>
+  <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#hero-scroll-container">
+    <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="14" cy="10" r="5" stroke="#C9A84C" stroke-width="1.5" fill="none"/>
+      <path d="M14 15 C14 15 8 18 6 23 M14 15 C14 15 20 18 22 23" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M14 15 C14 15 10 20 10 25 M14 15 C14 15 18 20 18 25" stroke="#C9A84C" stroke-width="1.2" stroke-linecap="round"/>
+      <path d="M14 15 C14 15 14 21 14 26" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+    KRAKEN
+  </a>
+  <div class="nav-links" id="navLinks">
+    <a href="#benefits">Why Kraken</a>
+    <a href="#services">Services</a>
+    <a href="#colors">Colors</a>
+    <a href="#reviews">Reviews</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contact" class="btn-primary">Free Quote</a>
+  </div>
+  <div class="hamburger" id="hamburger" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO SCROLL-JACK -->
+<div id="hero-scroll-container">
+  <div id="hero-sticky">
+
+    <!-- Before/After Layer -->
+    <div id="hero-ba">
+      <div id="hero-before">
+        <div class="flake-container" id="beforeFlakes"></div>
+        <div class="ba-label ba-label-before">BEFORE</div>
+      </div>
+      <div id="hero-after">
+        <div class="ba-label ba-label-after">AFTER</div>
+      </div>
+      <div id="wipe-line">
+        <div id="wipe-handle">
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M7 4l-4 6 4 6M13 4l4 6-4 6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Video/Epoxy Layer -->
+    <div id="hero-video-layer">
+      <div class="flake-container" id="videoFlakes"></div>
+    </div>
+
+    <!-- Overlay Content -->
+    <div id="hero-content">
+      <div class="hero-badge">Bozeman, Montana's #1 Epoxy Installer</div>
+      <h1 class="hero-h1">Transform Concrete Into<br><span>Surfaces That Shine</span></h1>
+      <p class="hero-sub">Our skilled flake system transforms cracked concrete into luxury, easy-to-maintain surfaces. Only a few premium installation slots left this season — book before they're gone.</p>
+      <div class="hero-ctas">
+        <a href="#contact" class="btn-primary" style="font-size:1rem; padding: 0.8rem 2rem;">Get a Free Quote</a>
+        <a href="tel:4069208065" class="btn-secondary" style="font-size:1rem; padding: 0.8rem 2rem;">📞 Call Now</a>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="scroll-indicator" id="scrollIndicator">
+      <span>SCROLL</span>
+      <div class="scroll-mouse"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- BENEFITS -->
+<section id="benefits">
+  <div class="container">
+    <div style="text-align:center; margin-bottom: 4rem;">
+      <div class="section-label" style="text-align:center">Why Choose Kraken</div>
+      <h2 class="section-title" style="text-align:center">Built to Last.<br>Built to Impress.</h2>
+      <div class="gold-line" style="margin:0 auto 1.5rem;"></div>
+      <p class="section-sub" style="margin:0 auto; text-align:center;">Every coating we install is engineered for Montana's extreme climate — from freeze-thaw cycles to UV exposure — while delivering showroom-quality results.</p>
+    </div>
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+      <div class="benefit-card reveal">
+        <div class="benefit-icon">🛡️</div>
+        <h3>Enhanced Durability</h3>
+        <p>Industrial-grade coatings withstand heavy vehicle traffic, harsh Montana winters, freeze-thaw cycles, and everything you throw at them. Rated for decades, not years.</p>
+      </div>
+      <div class="benefit-card reveal" style="transition-delay: 0.1s;">
+        <div class="benefit-icon">✨</div>
+        <h3>Luxury Aesthetic</h3>
+        <p>Mirror-like gloss finishes with decorative flake systems turn ordinary concrete into a statement. Your garage becomes a showroom. Your driveway becomes a feature.</p>
+      </div>
+      <div class="benefit-card reveal" style="transition-delay: 0.2s;">
+        <div class="benefit-icon">🧹</div>
+        <h3>Easy Maintenance</h3>
+        <p>Sweep and mop — that's it. No waxing, no sealing, no special cleaners. Stains wipe off. Oil doesn't soak in. Your floors stay pristine with almost zero effort.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="container">
+    <div style="margin-bottom: 4rem;">
+      <div class="section-label">What We Do</div>
+      <h2 class="section-title">Our Services</h2>
+      <div class="gold-line"></div>
+    </div>
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+      <div class="service-card reveal" onmousemove="tilt3D(this,event)" onmouseleave="resetTilt(this)">
+        <div class="service-num">01</div>
+        <h3>Garage Floors</h3>
+        <p>The gold standard for garage transformations. Full-broadcast flake systems over diamond-ground concrete, finished with UV-stable polyaspartic topcoat. Installed in a single day.</p>
+        <div class="service-tags">
+          <span class="service-tag">1-Day Install</span>
+          <span class="service-tag">UV Resistant</span>
+          <span class="service-tag">Anti-Slip</span>
+        </div>
+      </div>
+      <div class="service-card reveal" style="transition-delay:0.1s" onmousemove="tilt3D(this,event)" onmouseleave="resetTilt(this)">
+        <div class="service-num">02</div>
+        <h3>Driveways & Patios</h3>
+        <p>Decorative flake epoxy and polyaspartic coatings that withstand Montana weather, heavy vehicle loads, and look stunning year-round. Transform your home's curb appeal.</p>
+        <div class="service-tags">
+          <span class="service-tag">Weather-Proof</span>
+          <span class="service-tag">Decorative Flake</span>
+          <span class="service-tag">High-Gloss</span>
+        </div>
+      </div>
+      <div class="service-card reveal" style="transition-delay:0.2s" onmousemove="tilt3D(this,event)" onmouseleave="resetTilt(this)">
+        <div class="service-num">03</div>
+        <h3>Commercial Spaces</h3>
+        <p>Heavy-duty industrial epoxy for workshops, warehouses, retail floors, and commercial facilities. Slip-resistant, chemical-resistant, and built for serious punishment.</p>
+        <div class="service-tags">
+          <span class="service-tag">Industrial Grade</span>
+          <span class="service-tag">Slip-Resistant</span>
+          <span class="service-tag">Chemical-Proof</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COLORS -->
+<section id="colors" style="background: linear-gradient(to bottom, #0a0d14, #0a0a0f);">
+  <div class="container">
+    <div style="text-align:center; margin-bottom: 4rem;">
+      <div class="section-label" style="text-align:center">Customize Your Floor</div>
+      <h2 class="section-title" style="text-align:center">Choose Your Color</h2>
+      <div class="gold-line" style="margin: 0 auto 1.5rem;"></div>
+      <p class="section-sub" style="margin: 0 auto; text-align:center;">Every floor is unique. Browse our full color library across four systems — decorative flake, quartz, metallic, and solid tints.</p>
+    </div>
+
+    <!-- Color Tab Nav -->
+    <div style="display:flex; gap:0.5rem; flex-wrap:wrap; justify-content:center; margin-bottom: 3rem;" id="colorTabs">
+      <button class="color-tab active" onclick="switchTab('flake')">Decorative Flake</button>
+      <button class="color-tab" onclick="switchTab('quartz')">Decorative Quartz</button>
+      <button class="color-tab" onclick="switchTab('metallic')">Metallic Pigment</button>
+      <button class="color-tab" onclick="switchTab('tint')">Solid Tint Packs</button>
+    </div>
+
+    <!-- Flake Colors -->
+    <div class="color-panel" id="panel-flake">
+      <div class="color-grid">
+        <div class="color-chip" style="--c1:#4a5568;--c2:#718096;" onclick="selectColor(this,'Gravel')"><div class="chip-swatch"></div><span>Gravel</span></div>
+        <div class="color-chip" style="--c1:#2b4c7e;--c2:#4a7fa5;" onclick="selectColor(this,'Denim')"><div class="chip-swatch"></div><span>Denim</span></div>
+        <div class="color-chip" style="--c1:#8b6914;--c2:#c9a84c;" onclick="selectColor(this,'Saddle Tan')"><div class="chip-swatch"></div><span>Saddle Tan</span></div>
+        <div class="color-chip" style="--c1:#2d2d2d;--c2:#555;" onclick="selectColor(this,'Domino')"><div class="chip-swatch"></div><span>Domino</span></div>
+        <div class="color-chip" style="--c1:#6b5a3e;--c2:#9c8055;" onclick="selectColor(this,'Wombat')"><div class="chip-swatch"></div><span>Wombat</span></div>
+        <div class="color-chip" style="--c1:#1a1a2e;--c2:#16213e;" onclick="selectColor(this,'Nightfall')"><div class="chip-swatch"></div><span>Nightfall</span></div>
+        <div class="color-chip" style="--c1:#2a5298;--c2:#74b9ff;" onclick="selectColor(this,'Tidal Wave')"><div class="chip-swatch"></div><span>Tidal Wave</span></div>
+        <div class="color-chip" style="--c1:#5d7a61;--c2:#a8c5a0;" onclick="selectColor(this,'Creekbed')"><div class="chip-swatch"></div><span>Creekbed</span></div>
+        <div class="color-chip" style="--c1:#7a4a2a;--c2:#c4864a;" onclick="selectColor(this,'Cabin Fever')"><div class="chip-swatch"></div><span>Cabin Fever</span></div>
+        <div class="color-chip" style="--c1:#c9a84c;--c2:#e8d5a3;" onclick="selectColor(this,'Desert')"><div class="chip-swatch"></div><span>Desert</span></div>
+        <div class="color-chip" style="--c1:#3d3d3d;--c2:#6b6b6b;" onclick="selectColor(this,'Basalt')"><div class="chip-swatch"></div><span>Basalt</span></div>
+        <div class="color-chip" style="--c1:#8b1a1a;--c2:#c0392b;" onclick="selectColor(this,'Garnet Stone')"><div class="chip-swatch"></div><span>Garnet Stone</span></div>
+        <div class="color-chip" style="--c1:#0a0a0f;--c2:#1a1a2e;" onclick="selectColor(this,'Obsidian')"><div class="chip-swatch"></div><span>Obsidian</span></div>
+        <div class="color-chip" style="--c1:#9b9b9b;--c2:#d4d4d4;" onclick="selectColor(this,'Pumice')"><div class="chip-swatch"></div><span>Pumice</span></div>
+        <div class="color-chip" style="--c1:#5a6a4a;--c2:#8a9a7a;" onclick="selectColor(this,'Schist')"><div class="chip-swatch"></div><span>Schist</span></div>
+      </div>
+    </div>
+
+    <!-- Quartz Colors -->
+    <div class="color-panel hidden" id="panel-quartz">
+      <div class="color-grid">
+        <div class="color-chip" style="--c1:#c9a84c;--c2:#e8d5a3;" onclick="selectColor(this,'Desert Sand')"><div class="chip-swatch"></div><span>Desert Sand</span></div>
+        <div class="color-chip" style="--c1:#8a7a6a;--c2:#b0a090;" onclick="selectColor(this,'Poise')"><div class="chip-swatch"></div><span>Poise</span></div>
+        <div class="color-chip" style="--c1:#9b7a2a;--c2:#c9a84c;" onclick="selectColor(this,'Caramel')"><div class="chip-swatch"></div><span>Caramel</span></div>
+        <div class="color-chip" style="--c1:#607080;--c2:#90a0b0;" onclick="selectColor(this,'Slate')"><div class="chip-swatch"></div><span>Slate</span></div>
+        <div class="color-chip" style="--c1:#4a3520;--c2:#7a6040;" onclick="selectColor(this,'Coffee')"><div class="chip-swatch"></div><span>Coffee</span></div>
+        <div class="color-chip" style="--c1:#c4a882;--c2:#e0ccaa;" onclick="selectColor(this,'Sandalwood')"><div class="chip-swatch"></div><span>Sandalwood</span></div>
+        <div class="color-chip" style="--c1:#7a9060;--c2:#a0b880;" onclick="selectColor(this,'Sage Brush')"><div class="chip-swatch"></div><span>Sage Brush</span></div>
+        <div class="color-chip" style="--c1:#6ab0e0;--c2:#a0d0f0;" onclick="selectColor(this,'Light Blue')"><div class="chip-swatch"></div><span>Light Blue</span></div>
+        <div class="color-chip" style="--c1:#3a5a7a;--c2:#607090;" onclick="selectColor(this,'Blue Granite')"><div class="chip-swatch"></div><span>Blue Granite</span></div>
+        <div class="color-chip" style="--c1:#1a1a1a;--c2:#3a3a3a;" onclick="selectColor(this,'Black Granite')"><div class="chip-swatch"></div><span>Black Granite</span></div>
+      </div>
+    </div>
+
+    <!-- Metallic Colors -->
+    <div class="color-panel hidden" id="panel-metallic">
+      <div class="color-grid">
+        <div class="color-chip" style="--c1:#1a2a3a;--c2:#4a7fa5;" onclick="selectColor(this,'Black Ice')"><div class="chip-swatch" style="background:linear-gradient(135deg,#1a2a3a,#4a7fa5);"></div><span>Black Ice</span></div>
+        <div class="color-chip" style="--c1:#6a7a8a;--c2:#c0ccd8;" onclick="selectColor(this,'Polished Steel')"><div class="chip-swatch" style="background:linear-gradient(135deg,#6a7a8a,#c0ccd8);"></div><span>Polished Steel</span></div>
+        <div class="color-chip" style="--c1:#909090;--c2:#d8d8d8;" onclick="selectColor(this,'Brushed Aluminum')"><div class="chip-swatch" style="background:linear-gradient(135deg,#909090,#d8d8d8);"></div><span>Brushed Aluminum</span></div>
+        <div class="color-chip" style="--c1:#5a3a20;--c2:#9a6a40;" onclick="selectColor(this,'Brown Leather')"><div class="chip-swatch" style="background:linear-gradient(135deg,#5a3a20,#9a6a40);"></div><span>Brown Leather</span></div>
+        <div class="color-chip" style="--c1:#c9a84c;--c2:#f0d080;" onclick="selectColor(this,'Warm Caramel')"><div class="chip-swatch" style="background:linear-gradient(135deg,#c9a84c,#f0d080);"></div><span>Warm Caramel</span></div>
+        <div class="color-chip" style="--c1:#8b1a1a;--c2:#e74c3c;" onclick="selectColor(this,'Pomegranate')"><div class="chip-swatch" style="background:linear-gradient(135deg,#8b1a1a,#e74c3c);"></div><span>Pomegranate</span></div>
+        <div class="color-chip" style="--c1:#2d5a3d;--c2:#5a9a6a;" onclick="selectColor(this,'Sage Green')"><div class="chip-swatch" style="background:linear-gradient(135deg,#2d5a3d,#5a9a6a);"></div><span>Sage Green</span></div>
+        <div class="color-chip" style="--c1:#1a4a7a;--c2:#4a8abf;" onclick="selectColor(this,'Ocean Blue')"><div class="chip-swatch" style="background:linear-gradient(135deg,#1a4a7a,#4a8abf);"></div><span>Ocean Blue</span></div>
+        <div class="color-chip" style="--c1:#b8860b;--c2:#ffd700;" onclick="selectColor(this,'Burnished Gold')"><div class="chip-swatch" style="background:linear-gradient(135deg,#b8860b,#ffd700);"></div><span>Burnished Gold</span></div>
+        <div class="color-chip" style="--c1:#4a4a4a;--c2:#909090;" onclick="selectColor(this,'Metal Gray')"><div class="chip-swatch" style="background:linear-gradient(135deg,#4a4a4a,#909090);"></div><span>Metal Gray</span></div>
+        <div class="color-chip" style="--c1:#8b4513;--c2:#cd7f32;" onclick="selectColor(this,'Copper Pot')"><div class="chip-swatch" style="background:linear-gradient(135deg,#8b4513,#cd7f32);"></div><span>Copper Pot</span></div>
+        <div class="color-chip" style="--c1:#1a4a9a;--c2:#4a7ae0;" onclick="selectColor(this,'Brilliant Blue')"><div class="chip-swatch" style="background:linear-gradient(135deg,#1a4a9a,#4a7ae0);"></div><span>Brilliant Blue</span></div>
+        <div class="color-chip" style="--c1:#4a2a0a;--c2:#8a5a2a;" onclick="selectColor(this,'Earth Brown')"><div class="chip-swatch" style="background:linear-gradient(135deg,#4a2a0a,#8a5a2a);"></div><span>Earth Brown</span></div>
+        <div class="color-chip" style="--c1:#2a7ab0;--c2:#5ab0e0;" onclick="selectColor(this,'Sky Blue')"><div class="chip-swatch" style="background:linear-gradient(135deg,#2a7ab0,#5ab0e0);"></div><span>Sky Blue</span></div>
+      </div>
+    </div>
+
+    <!-- Tint Packs -->
+    <div class="color-panel hidden" id="panel-tint">
+      <div class="color-grid">
+        <div class="color-chip" onclick="selectColor(this,'Black')"><div class="chip-swatch" style="background:#111;"></div><span>Black</span></div>
+        <div class="color-chip" onclick="selectColor(this,'White')"><div class="chip-swatch" style="background:#f0f0f0; border:1px solid #333;"></div><span>White</span></div>
+        <div class="color-chip" onclick="selectColor(this,'Dark Gray')"><div class="chip-swatch" style="background:#3a3a3a;"></div><span>Dark Gray</span></div>
+        <div class="color-chip" onclick="selectColor(this,'Forest Green')"><div class="chip-swatch" style="background:#2d5a27;"></div><span>Forest Green</span></div>
+        <div class="color-chip" onclick="selectColor(this,'Dunes Tan')"><div class="chip-swatch" style="background:#c4a882;"></div><span>Dunes Tan</span></div>
+        <div class="color-chip" onclick="selectColor(this,'Light Gray')"><div class="chip-swatch" style="background:#9a9a9a;"></div><span>Light Gray</span></div>
+        <div class="color-chip" onclick="selectColor(this,'Navy Gray')"><div class="chip-swatch" style="background:#3a4a5a;"></div><span>Navy Gray</span></div>
+        <div class="color-chip" onclick="selectColor(this,'Greige')"><div class="chip-swatch" style="background:#b0a090;"></div><span>Greige</span></div>
+        <div class="color-chip" onclick="selectColor(this,'Safety Blue')"><div class="chip-swatch" style="background:#0057a8;"></div><span>Safety Blue</span></div>
+        <div class="color-chip" onclick="selectColor(this,'Safety Orange')"><div class="chip-swatch" style="background:#e87722;"></div><span>Safety Orange</span></div>
+        <div class="color-chip" onclick="selectColor(this,'Safety Red')"><div class="chip-swatch" style="background:#c0392b;"></div><span>Safety Red</span></div>
+        <div class="color-chip" onclick="selectColor(this,'Safety Yellow')"><div class="chip-swatch" style="background:#f1c40f;"></div><span>Safety Yellow</span></div>
+        <div class="color-chip" onclick="selectColor(this,'Safety Green')"><div class="chip-swatch" style="background:#27ae60;"></div><span>Safety Green</span></div>
+        <div class="color-chip" onclick="selectColor(this,'Sahara Desert')"><div class="chip-swatch" style="background:#c9a84c;"></div><span>Sahara Desert</span></div>
+        <div class="color-chip" onclick="selectColor(this,'Sand')"><div class="chip-swatch" style="background:#d4c5a0;"></div><span>Sand</span></div>
+        <div class="color-chip" onclick="selectColor(this,'Silver Gray')"><div class="chip-swatch" style="background:#7a8a9a;"></div><span>Silver Gray</span></div>
+        <div class="color-chip" onclick="selectColor(this,'Super Light Gray')"><div class="chip-swatch" style="background:#d0d0d0;"></div><span>Super Light Gray</span></div>
+        <div class="color-chip" onclick="selectColor(this,'Tile Red')"><div class="chip-swatch" style="background:#9a3020;"></div><span>Tile Red</span></div>
+        <div class="color-chip" onclick="selectColor(this,'Armor Gray')"><div class="chip-swatch" style="background:#505060;"></div><span>Armor Gray</span></div>
+      </div>
+    </div>
+
+    <!-- Selected color callout -->
+    <div id="color-selected" style="display:none; margin-top:2rem; text-align:center; padding:1.5rem; background:rgba(201,168,76,0.08); border:1px solid rgba(201,168,76,0.3); border-radius:12px;">
+      <p style="color:var(--gold); font-weight:600; font-size:1rem;">
+        ✓ You selected: <span id="color-name" style="font-family:'Bebas Neue',cursive; font-size:1.3rem; letter-spacing:0.1em;"></span>
+      </p>
+      <p style="color:rgba(240,237,232,0.6); font-size:0.875rem; margin-top:0.5rem;">Mention this color when you fill out the quote form below.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews" style="padding-left:0;padding-right:0;">
+  <div class="container" style="padding: 0 clamp(1.5rem, 5vw, 3rem);">
+    <div style="margin-bottom: 3rem;">
+      <div class="section-label">Client Results</div>
+      <h2 class="section-title">What Bozeman Says</h2>
+      <div class="gold-line"></div>
+    </div>
+  </div>
+  <div class="reviews-track-wrapper">
+    <div class="reviews-track" id="reviewsTrack">
+      <!-- Reviews duplicated for infinite scroll -->
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Emanuel and his team did an amazing job on my garage floor. The epoxy coating is flawless, durable, and looks stunning. Montana winters no longer cause stains or cracks. Highly recommend Kraken for quality and professionalism."</p>
+        <div class="review-author"><div class="review-avatar">SJ</div><div><div class="review-name">Sarah J.</div><div class="review-role">Homeowner, Bozeman</div></div></div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Our driveway was in terrible shape, cracked and stained. Kraken's decorative flakes and epoxy coating completely revitalized it. Now it's the highlight of our home, and it withstands Montana weather perfectly."</p>
+        <div class="review-author"><div class="review-avatar">MT</div><div><div class="review-name">Mike T.</div><div class="review-role">Homeowner, Bozeman</div></div></div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"I wanted a garage that looked like a showroom and could handle our Montana winters. Kraken delivered beyond expectations. The high-gloss epoxy is beautiful, and the surface is resistant to everything."</p>
+        <div class="review-author"><div class="review-avatar">LM</div><div><div class="review-name">Lisa M.</div><div class="review-role">Homeowner, Bozeman</div></div></div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"The commercial epoxy floor Kraken installed in our workshop is outstanding. It's slip-resistant, durable, and easy to clean. The team was efficient and precise, ensuring a perfect finish that lasts for years."</p>
+        <div class="review-author"><div class="review-avatar">DR</div><div><div class="review-name">David R.</div><div class="review-role">Business Owner, Montana</div></div></div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"We hired Kraken to redo our outdoor patio with decorative flakes and epoxy. The result is stunning and weatherproof. It's become our favorite outdoor space, and we get compliments all the time."</p>
+        <div class="review-author"><div class="review-avatar">EK</div><div><div class="review-name">Emily K.</div><div class="review-role">Homeowner, Bozeman</div></div></div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Kraken's polyaspartic topcoats and meticulous prep work made all the difference. The finish is mirror-like, UV resistant, and installed in a day. Our garage needed a serious upgrade and they delivered."</p>
+        <div class="review-author"><div class="review-avatar">TS</div><div><div class="review-name">Tom S.</div><div class="review-role">Homeowner, Bozeman</div></div></div>
+      </div>
+      <!-- Duplicate for seamless loop -->
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Emanuel and his team did an amazing job on my garage floor. The epoxy coating is flawless, durable, and looks stunning. Montana winters no longer cause stains or cracks. Highly recommend Kraken for quality and professionalism."</p>
+        <div class="review-author"><div class="review-avatar">SJ</div><div><div class="review-name">Sarah J.</div><div class="review-role">Homeowner, Bozeman</div></div></div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Our driveway was in terrible shape, cracked and stained. Kraken's decorative flakes and epoxy coating completely revitalized it. Now it's the highlight of our home, and it withstands Montana weather perfectly."</p>
+        <div class="review-author"><div class="review-avatar">MT</div><div><div class="review-name">Mike T.</div><div class="review-role">Homeowner, Bozeman</div></div></div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"I wanted a garage that looked like a showroom and could handle our Montana winters. Kraken delivered beyond expectations. The high-gloss epoxy is beautiful, and the surface is resistant to everything."</p>
+        <div class="review-author"><div class="review-avatar">LM</div><div><div class="review-name">Lisa M.</div><div class="review-role">Homeowner, Bozeman</div></div></div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"The commercial epoxy floor Kraken installed in our workshop is outstanding. It's slip-resistant, durable, and easy to clean. The team was efficient and precise, ensuring a perfect finish that lasts for years."</p>
+        <div class="review-author"><div class="review-avatar">DR</div><div><div class="review-name">David R.</div><div class="review-role">Business Owner, Montana</div></div></div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"We hired Kraken to redo our outdoor patio with decorative flakes and epoxy. The result is stunning and weatherproof. It's become our favorite outdoor space, and we get compliments all the time."</p>
+        <div class="review-author"><div class="review-avatar">EK</div><div><div class="review-name">Emily K.</div><div class="review-role">Homeowner, Bozeman</div></div></div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Kraken's polyaspartic topcoats and meticulous prep work made all the difference. The finish is mirror-like, UV resistant, and installed in a day. Our garage needed a serious upgrade and they delivered."</p>
+        <div class="review-author"><div class="review-avatar">TS</div><div><div class="review-name">Tom S.</div><div class="review-role">Homeowner, Bozeman</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="container" style="max-width: 800px;">
+    <div style="margin-bottom: 3rem;">
+      <div class="section-label">Got Questions</div>
+      <h2 class="section-title">FAQ</h2>
+      <div class="gold-line"></div>
+    </div>
+    <div class="faq-item reveal">
+      <button class="faq-btn" onclick="toggleFaq(this)">
+        What types of concrete coatings do you offer?
+        <div class="faq-icon">+</div>
+      </button>
+      <div class="faq-answer">We offer epoxy floor coatings, polyaspartic topcoats, and decorative flake systems for residential garages, driveways, patios, and commercial spaces. Each system is selected based on your specific environment and performance needs.</div>
+    </div>
+    <div class="faq-item reveal">
+      <button class="faq-btn" onclick="toggleFaq(this)">
+        How long does the installation process take?
+        <div class="faq-icon">+</div>
+      </button>
+      <div class="faq-answer">Most residential jobs are completed in a single day. We prep the concrete in the morning and apply the coating and topcoat by afternoon. Commercial projects may take 2–3 days depending on square footage.</div>
+    </div>
+    <div class="faq-item reveal">
+      <button class="faq-btn" onclick="toggleFaq(this)">
+        What maintenance is required for coated surfaces?
+        <div class="faq-icon">+</div>
+      </button>
+      <div class="faq-answer">Very little — just sweep and occasionally mop with mild soap. No waxing, no sealing, no special cleaners needed. Oil, chemicals, and stains wipe right off. Your floors stay pristine with almost zero effort.</div>
+    </div>
+    <div class="faq-item reveal">
+      <button class="faq-btn" onclick="toggleFaq(this)">
+        What warranty do you offer on your coatings?
+        <div class="faq-icon">+</div>
+      </button>
+      <div class="faq-answer">We stand behind our work with a multi-year warranty covering delamination and peeling. We use premium materials and proper prep (diamond grinding) to ensure our coatings bond permanently. Contact us for specifics on your project type.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div style="text-align:center; margin-bottom: 4rem;">
+      <div class="section-label" style="text-align:center">Get Started</div>
+      <h2 class="section-title" style="text-align:center">Get Your Free Quote</h2>
+      <div class="gold-line" style="margin: 0 auto 1.5rem;"></div>
+      <p class="section-sub" style="margin: 0 auto; text-align:center;">Ready to transform your concrete? We respond to all inquiries within 24 hours and offer free on-site consultations throughout Bozeman and surrounding areas.</p>
+    </div>
+    <div class="contact-grid">
+      <form class="contact-form reveal" onsubmit="handleForm(event)">
+        <input type="text" name="name" placeholder="Your Full Name" required/>
+        <input type="tel" name="phone" placeholder="Phone Number" required/>
+        <input type="email" name="email" placeholder="Email Address" required/>
+        <select name="project">
+          <option value="" disabled selected>Project Type</option>
+          <option>Garage Floor</option>
+          <option>Driveway</option>
+          <option>Patio / Outdoor</option>
+          <option>Commercial Space</option>
+          <option>Other</option>
+        </select>
+        <textarea name="message" placeholder="Tell us about your project — size, condition, timeline..."></textarea>
+        <button type="submit" class="btn-primary" style="width:100%; padding:1rem; font-size:1rem; border:none; cursor:pointer;">
+          Send My Request →
+        </button>
+        <div id="form-success" style="display:none; text-align:center; color:var(--gold); margin-top:1rem; font-weight:600;">
+          ✓ Request sent! We'll be in touch within 24 hours.
+        </div>
+      </form>
+      <div class="reveal">
+        <div class="contact-info-item">
+          <div class="contact-info-icon">📞</div>
+          <div class="contact-info-text">
+            <strong>Phone</strong>
+            <a href="tel:4069208065">(406) 920-8065</a>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-info-icon">✉️</div>
+          <div class="contact-info-text">
+            <strong>Email</strong>
+            <a href="mailto:krakencoatingsllc@gmail.com">krakencoatingsllc@gmail.com</a>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-info-icon">📍</div>
+          <div class="contact-info-text">
+            <strong>Service Area</strong>
+            <span style="color:rgba(240,237,232,0.7)">Bozeman, MT & surrounding areas</span>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-info-icon">🕐</div>
+          <div class="contact-info-text">
+            <strong>Response Time</strong>
+            <span style="color:rgba(240,237,232,0.7)">Within 24 hours — usually same day</span>
+          </div>
+        </div>
+        <div class="map-placeholder">
+          📍 Proudly Serving Bozeman, Montana
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">KRAKEN</div>
+    <div class="footer-links">
+      <a href="#benefits">Why Kraken</a>
+      <a href="#services">Services</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="footer-social">
+      <a href="#" class="social-btn" title="Facebook">f</a>
+      <a href="#" class="social-btn" title="Instagram">ig</a>
+      <a href="#" class="social-btn" title="YouTube">▶</a>
+    </div>
+  </div>
+  <div class="footer-copy">
+    © 2026 Kraken Concrete Coatings LLC. All rights reserved. Proudly serving Bozeman, Montana and surrounding areas.
+  </div>
+</footer>
+
+<script>
+// ── COLOR PICKER ──
+function switchTab(tab) {
+  document.querySelectorAll('.color-panel').forEach(p => p.classList.add('hidden'));
+  document.querySelectorAll('.color-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel-' + tab).classList.remove('hidden');
+  event.target.classList.add('active');
+  document.getElementById('color-selected').style.display = 'none';
+  document.querySelectorAll('.color-chip').forEach(c => c.classList.remove('selected'));
+}
+function selectColor(chip, name) {
+  document.querySelectorAll('.color-chip').forEach(c => c.classList.remove('selected'));
+  chip.classList.add('selected');
+  document.getElementById('color-name').textContent = name;
+  document.getElementById('color-selected').style.display = 'block';
+  document.getElementById('color-selected').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+// ── LOADER ──
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('hidden');
+  }, 1600);
+});
+
+// ── NAV MOBILE ──
+function toggleNav() {
+  document.getElementById('navLinks').classList.toggle('mobile-open');
+}
+
+// ── GENERATE FLAKES ──
+function generateFlakes(containerId, count = 20) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  for (let i = 0; i < count; i++) {
+    const flake = document.createElement('div');
+    flake.className = 'flake';
+    flake.style.cssText = `
+      left: ${Math.random() * 100}%;
+      width: ${2 + Math.random() * 4}px;
+      height: ${2 + Math.random() * 4}px;
+      --dur: ${4 + Math.random() * 8}s;
+      --delay: ${Math.random() * 6}s;
+      background: ${Math.random() > 0.5 ? '#C9A84C' : '#4A7FA5'};
+      opacity: 0;
+    `;
+    container.appendChild(flake);
+  }
+}
+generateFlakes('videoFlakes', 25);
+
+// ── SCROLL-JACK HERO ──
+const heroScrollContainer = document.getElementById('hero-scroll-container');
+const heroAfter = document.getElementById('hero-after');
+const wipeLine = document.getElementById('wipe-line');
+const heroVideoLayer = document.getElementById('hero-video-layer');
+const heroBa = document.getElementById('hero-ba');
+const scrollIndicator = document.getElementById('scrollIndicator');
+
+function updateHero() {
+  const rect = heroScrollContainer.getBoundingClientRect();
+  const totalScroll = heroScrollContainer.offsetHeight - window.innerHeight;
+  const scrolled = -rect.top;
+  const progress = Math.max(0, Math.min(1, scrolled / totalScroll));
+
+  // Hide scroll indicator after first scroll
+  if (progress > 0.02) {
+    scrollIndicator.style.opacity = Math.max(0, 1 - progress * 10);
+  }
+
+  if (progress <= 0.5) {
+    // Phase 1: wipe reveal (0 → 50%)
+    const wipeProgress = progress / 0.5; // 0 to 1
+    const wipePercent = wipeProgress * 100;
+
+    heroBa.style.opacity = '1';
+    heroVideoLayer.style.opacity = '0';
+
+    // Clip the after image to show from left
+    heroAfter.style.clipPath = `inset(0 ${100 - wipePercent}% 0 0)`;
+
+    // Wipe line position
+    wipeLine.style.left = wipePercent + '%';
+    wipeLine.style.opacity = wipeProgress > 0.02 ? '1' : '0';
+
+  } else {
+    // Phase 2: transition to video (50% → 100%)
+    const videoProgress = (progress - 0.5) / 0.5; // 0 to 1
+
+    heroAfter.style.clipPath = 'inset(0 0% 0 0)';
+    wipeLine.style.opacity = '0';
+
+    // Fade out BA, fade in video
+    heroBa.style.opacity = Math.max(0, 1 - videoProgress * 2);
+    heroVideoLayer.style.opacity = Math.min(1, videoProgress * 1.5);
+  }
+}
+
+window.addEventListener('scroll', updateHero, { passive: true });
+updateHero();
+
+// ── 3D CARD TILT ──
+function tilt3D(card, e) {
+  const rect = card.getBoundingClientRect();
+  const x = (e.clientX - rect.left) / rect.width - 0.5;
+  const y = (e.clientY - rect.top) / rect.height - 0.5;
+  card.style.transform = `perspective(1000px) rotateY(${x * 12}deg) rotateX(${-y * 8}deg) translateZ(10px)`;
+}
+function resetTilt(card) {
+  card.style.transform = 'perspective(1000px) rotateY(0) rotateX(0) translateZ(0)';
+}
+
+// ── REVEAL ON SCROLL ──
+const reveals = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      revealObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.15 });
+reveals.forEach(el => revealObserver.observe(el));
+
+// ── FAQ ──
+function toggleFaq(btn) {
+  const item = btn.parentElement;
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+// ── FORM ──
+function handleForm(e) {
+  e.preventDefault();
+  document.getElementById('form-success').style.display = 'block';
+  e.target.reset();
+  setTimeout(() => {
+    document.getElementById('form-success').style.display = 'none';
+  }, 5000);
+}
+</script>
+</body>
+</html>
