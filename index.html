@@ -37,27 +37,37 @@
 
 <main>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-bg">
-      <img src="assets/img/driveway-red-flake.jpg" alt="Decorative flake driveway coating in Bozeman, Montana" fetchpriority="high">
-    </div>
-    <div class="container">
-      <span class="kicker">Bozeman, Montana</span>
-      <h1>Transform Concrete Into <br>Surfaces That <em>Shine Forever</em></h1>
-      <p class="sub">Premium epoxy, decorative flake, and polyaspartic floor coatings that turn cracked, dusty concrete into showroom-quality surfaces — built to beat Montana winters for decades.</p>
-      <div class="btn-row">
-        <a class="btn" href="contact.html">Get Your Free Quote</a>
-        <a class="btn btn-ghost" href="tel:+14062239149">Call (406) 223-9149</a>
+  <!-- HERO — scroll-driven before/after wipe -->
+  <div class="scroll-hero" id="scrollHero">
+    <section class="hero hero-wipe">
+      <div class="hero-layers" aria-hidden="true">
+        <img class="layer-before" src="assets/img/before-cracked-garage.jpg" alt="" fetchpriority="high">
+        <img class="layer-after" src="assets/img/garage-two-tone.jpg" alt="">
+        <span class="ba-label ba-label-before">Before</span>
+        <span class="ba-label ba-label-after">After</span>
+        <div class="wipe-line"><span class="wipe-handle">&#x2039;&#x203A;</span></div>
+        <!-- placeholder for real epoxy pour video -->
+        <div class="layer-shimmer"></div>
+        <div class="hero-scrim"></div>
       </div>
-      <div class="trust-row">
-        <span><strong>Lifetime</strong> Warranty</span>
-        <span><strong>500+</strong> Projects</span>
-        <span><strong>Zero</strong> Shortcuts</span>
-        <span><strong>100%</strong> Satisfaction</span>
+      <div class="container hero-content">
+        <span class="kicker">Bozeman, Montana</span>
+        <h1>Transform Concrete Into <br>Surfaces That <em>Shine Forever</em></h1>
+        <p class="sub">Premium epoxy, decorative flake, and polyaspartic floor coatings that turn cracked, dusty concrete into showroom-quality surfaces — built to beat Montana winters for decades.</p>
+        <div class="btn-row">
+          <a class="btn" href="contact.html">Get Your Free Quote</a>
+          <a class="btn btn-ghost" href="tel:+14062239149">Call (406) 223-9149</a>
+        </div>
+        <div class="trust-row">
+          <span><strong>Lifetime</strong> Warranty</span>
+          <span><strong>500+</strong> Projects</span>
+          <span><strong>Zero</strong> Shortcuts</span>
+          <span><strong>100%</strong> Satisfaction</span>
+        </div>
       </div>
-    </div>
-  </section>
+      <div class="scroll-cue">Scroll to reveal</div>
+    </section>
+  </div>
 
   <!-- ELITE HOOK + STATS -->
   <section>
@@ -245,5 +255,54 @@
 </footer>
 
 <script src="assets/nav.js"></script>
+<script>
+(function () {
+  var container = document.getElementById('scrollHero');
+  if (!container) return;
+  var after   = container.querySelector('.layer-after');
+  var line    = container.querySelector('.wipe-line');
+  var shimmer = container.querySelector('.layer-shimmer');
+  var layers  = container.querySelectorAll('.layer-before, .layer-after, .ba-label');
+  var cue     = container.querySelector('.scroll-cue');
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    container.classList.add('static');
+    after.style.clipPath = 'inset(0 50% 0 0)';
+    line.style.left = '50%';
+    return;
+  }
+
+  var ticking = false;
+  function update() {
+    ticking = false;
+    var max = container.offsetHeight - window.innerHeight;
+    var scrollProgress = Math.min(Math.max(window.scrollY / max, 0), 1);
+
+    if (scrollProgress <= 0.5) {
+      // 0–50%: left-to-right wipe revealing AFTER over BEFORE
+      var wipePercent = (scrollProgress / 0.5) * 100;
+      after.style.clipPath = 'inset(0 ' + (100 - wipePercent) + '% 0 0)';
+      line.style.left = wipePercent + '%';
+      line.style.opacity = (wipePercent > 0.5 && wipePercent < 99.5) ? 1 : 0;
+      shimmer.style.opacity = 0;
+      for (var i = 0; i < layers.length; i++) layers[i].style.opacity = '';
+    } else {
+      // 50–100%: photos fade out, epoxy shimmer fades in
+      var fade = (scrollProgress - 0.5) / 0.5;
+      after.style.clipPath = 'inset(0 0% 0 0)';
+      line.style.opacity = 0;
+      shimmer.style.opacity = fade;
+      for (var j = 0; j < layers.length; j++) layers[j].style.opacity = 1 - fade;
+    }
+    if (cue) cue.style.opacity = scrollProgress > 0.02 ? 0 : 1;
+  }
+
+  window.addEventListener('scroll', function () {
+    if (!ticking) { ticking = true; requestAnimationFrame(update); }
+  }, { passive: true });
+  window.addEventListener('resize', update);
+  update();
+})();
+</script>
 </body>
 </html>

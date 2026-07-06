@@ -53,10 +53,9 @@
         <div class="reveal">
           <span class="kicker">Request A Quote</span>
           <h2 style="margin-bottom:1.6rem">Tell Us About Your Project</h2>
-          <form class="form-grid" action="https://formsubmit.co/krakencoatingsllc@gmail.com" method="POST">
-            <input type="hidden" name="_subject" value="New quote request — krakenconcretecoatings.com">
-            <input type="hidden" name="_captcha" value="false">
-            <input type="text" name="_honey" style="display:none">
+          <form class="form-grid" id="quoteForm" action="https://tggai.app.n8n.cloud/webhook/kraken-lead" method="POST">
+            <input type="hidden" name="source" value="krakenconcretecoatings.com">
+            <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
             <div>
               <label for="f-name">Name</label>
               <input id="f-name" type="text" name="name" required autocomplete="name">
@@ -92,6 +91,10 @@
               <button class="btn" type="submit">Send Quote Request</button>
             </div>
           </form>
+          <div class="form-thanks" id="formThanks" hidden>
+            <h3>Request Received.</h3>
+            <p>Emanuel will call you within 60 seconds.</p>
+          </div>
         </div>
 
         <!-- INFO -->
@@ -163,5 +166,30 @@
 </footer>
 
 <script src="assets/nav.js"></script>
+<script>
+(function () {
+  var form = document.getElementById('quoteForm');
+  var thanks = document.getElementById('formThanks');
+  if (!form || !thanks) return;
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var btn = form.querySelector('button[type="submit"]');
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    var data = new FormData(form);
+    fetch(form.action, { method: 'POST', body: data })
+      .catch(function () {
+        // CORS/network fallback — fire-and-forget so the lead still lands
+        return fetch(form.action, { method: 'POST', body: data, mode: 'no-cors' });
+      })
+      .catch(function () {})
+      .finally(function () {
+        form.hidden = true;
+        thanks.hidden = false;
+        thanks.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
+  });
+})();
+</script>
 </body>
 </html>
