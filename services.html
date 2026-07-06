@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services &amp; Colors — Kraken Concrete Coatings | Bozeman, MT</title>
+  <meta name="description" content="Garage floor, driveway, patio, and commercial concrete coatings in Bozeman, MT. Explore 58 colors across decorative flake, quartz, metallic, and solid tint systems.">
+  <link rel="icon" type="image/png" href="assets/img/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html">
+      <img src="assets/img/logo.png" alt="Kraken Concrete Coatings logo">
+      <span>Kraken <em>Concrete Coatings</em></span>
+    </a>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <a class="nav-cta" href="tel:+14062239149">(406) 223-9149</a>
+    <button class="nav-toggle" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+
+  <section class="page-hero">
+    <div class="container">
+      <span class="kicker">Services</span>
+      <h1>Coatings Built For Montana</h1>
+      <p>Professional-grade epoxy, flake, and polyaspartic systems using Citadel Floors products — engineered for freeze-thaw cycles, road salt, hot tires, and decades of daily use.</p>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section>
+    <div class="container">
+      <div class="grid-2">
+        <div class="card service-card reveal">
+          <figure><img src="assets/img/garage-two-tone.jpg" alt="Epoxy coated residential garage floor" loading="lazy"></figure>
+          <div class="body">
+            <h3>Garage Floor Coatings</h3>
+            <p>The showroom-perfect garage floor: high-performance epoxy base, full flake broadcast, and a UV-stable polyaspartic topcoat with mirror shine.</p>
+            <ul>
+              <li>Resists oil, chemicals, hot tire pick-up</li>
+              <li>Eliminates concrete dust forever</li>
+              <li>Installed in as little as one day</li>
+              <li>Lifetime adhesion warranty</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card service-card reveal">
+          <figure><img src="assets/img/full-driveway.jpg" alt="Decorative flake coated driveway" loading="lazy"></figure>
+          <div class="body">
+            <h3>Driveway Coatings</h3>
+            <p>Decorative flake systems that revive cracked, stained driveways and turn them into the highlight of the block.</p>
+            <ul>
+              <li>Weatherproof against Montana winters</li>
+              <li>Hides existing cracks and stains</li>
+              <li>Slip-resistant texture options</li>
+              <li>Massive curb appeal upgrade</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card service-card reveal">
+          <figure><img src="assets/img/pool-deck-blue.jpg" alt="Coated pool deck surface" loading="lazy"></figure>
+          <div class="body">
+            <h3>Patio Coatings</h3>
+            <p>Patios, pool decks, walkways, and outdoor living spaces — coated, sealed, and ready for every season.</p>
+            <ul>
+              <li>UV-stable — won't yellow or fade</li>
+              <li>Cool-touch, slip-resistant finishes</li>
+              <li>Decorative flake, quartz, or stained looks</li>
+              <li>Easy to clean, zero maintenance</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card service-card reveal">
+          <figure><img src="assets/img/warehouse-flake.jpg" alt="Commercial epoxy flake floor in warehouse" loading="lazy"></figure>
+          <div class="body">
+            <h3>Commercial Coatings</h3>
+            <p>High-traffic floors for shops, restaurants, hangars, and warehouses — durable, safe, and easy to maintain.</p>
+            <ul>
+              <li>Slip-resistant and chemical resistant</li>
+              <li>Handles forklifts and heavy equipment</li>
+              <li>Fast cure — minimal downtime</li>
+              <li>Custom safety-line and color options</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COLOR PICKER -->
+  <section class="cta-band" style="padding: clamp(3.5rem, 8vw, 6.5rem) 0;">
+    <div class="container" style="display:block">
+      <div class="section-head reveal">
+        <span class="kicker">Color Picker</span>
+        <h2>Choose Your Finish</h2>
+        <p>58 colors across four professional systems. Tap a system, then tap a swatch to preview it. Tell us your pick when you request a quote.</p>
+      </div>
+
+      <div class="picker-tabs" role="tablist">
+        <button class="picker-tab active" data-tab="flake" role="tab">Decorative Flake<small>15 colors</small></button>
+        <button class="picker-tab" data-tab="quartz" role="tab">Decorative Quartz<small>10 colors</small></button>
+        <button class="picker-tab" data-tab="metallic" role="tab">Metallic Pigment<small>14 colors</small></button>
+        <button class="picker-tab" data-tab="tint" role="tab">Solid Tint Packs<small>19 colors</small></button>
+      </div>
+
+      <div class="picker-layout">
+        <div class="swatch-grid" id="swatchGrid"></div>
+        <aside class="picker-preview" id="pickerPreview">
+          <div class="preview-chip" id="previewChip"></div>
+          <div class="sys" id="previewSys"></div>
+          <h3 id="previewName"></h3>
+          <p id="previewDesc"></p>
+          <div class="btn-row" style="margin-top:1.2rem">
+            <a class="btn" id="previewCta" href="contact.html">Quote This Color</a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section>
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="kicker">How It Works</span>
+        <h2>The Five-Step Kraken Install</h2>
+      </div>
+      <div class="steps">
+        <div class="step reveal"><div><h3>Diamond Grinding</h3><p>Mechanical surface prep opens the concrete's pores for a permanent bond — never shortcuts, never acid etching.</p></div></div>
+        <div class="step reveal"><div><h3>Crack &amp; Spall Repair</h3><p>Every crack is chased, filled, and sealed. Moisture testing confirms the slab is ready before a drop of coating goes down.</p></div></div>
+        <div class="step reveal"><div><h3>Epoxy Base Coat</h3><p>Professional-grade pigmented epoxy rolled to the correct millage — the structural backbone of the system.</p></div></div>
+        <div class="step reveal"><div><h3>Broadcast To Rejection</h3><p>Flake or quartz is broadcast until the floor can't hold any more, then scraped smooth. Full, uniform coverage guaranteed.</p></div></div>
+        <div class="step reveal"><div><h3>Polyaspartic Topcoat</h3><p>Crystal-clear, UV-stable topcoat locks it all in with a mirror shine. Walk on it the same day, park on it in 24 hours.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-band">
+    <div class="container">
+      <div class="reveal">
+        <span class="kicker">Free Quotes</span>
+        <h2>Found Your Color?</h2>
+        <p style="margin-top:0.8rem">Request a free on-site quote and Emanuel will bring physical samples of your favorites.</p>
+        <a class="phone-line" href="tel:+14062239149">(406) 223-9149</a>
+        <div class="btn-row">
+          <a class="btn" href="contact.html">Get Your Free Quote</a>
+        </div>
+      </div>
+      <div class="reveal">
+        <img src="assets/img/process-flake.jpg" alt="Broadcasting decorative flake into fresh epoxy" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="brand">Kraken <em>Concrete Coatings</em></div>
+        <p>Premium epoxy &amp; decorative flake coating specialists serving Bozeman, Montana and surrounding areas since 2020.</p>
+      </div>
+      <div>
+        <h4>Pages</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:+14062239149">(406) 223-9149</a></li>
+          <li><a href="mailto:krakencoatingsllc@gmail.com">krakencoatingsllc@gmail.com</a></li>
+          <li><a href="contact.html">Bozeman, Montana</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="legal">
+      <span>© 2026 Kraken Concrete Coatings LLC. All rights reserved.</span>
+      <span>Bozeman, MT &amp; surrounding areas</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/nav.js"></script>
+<script>
+/* ---- Color picker ---- */
+(function () {
+  "use strict";
+
+  var SYSTEMS = {
+    flake: {
+      label: "Decorative Flake",
+      desc: "Multi-colored polymer chips broadcast into a pigmented epoxy base and sealed under clear polyaspartic. The most popular system for garages, patios, basements, and commercial floors.",
+      img: true,
+      colors: [
+        ["Gravel", "assets/img/flake/gravel.jpg"],
+        ["Denim", "assets/img/flake/denim.jpg"],
+        ["Saddle Tan", "assets/img/flake/saddle-tan.jpg"],
+        ["Domino", "assets/img/flake/domino.jpg"],
+        ["Wombat", "assets/img/flake/wombat.jpg"],
+        ["Nightfall", "assets/img/flake/nightfall.jpg"],
+        ["Tidal Wave", "assets/img/flake/tidal-wave.jpg"],
+        ["Creekbed", "assets/img/flake/creekbed.jpg"],
+        ["Cabin Fever", "assets/img/flake/cabin-fever.jpg"],
+        ["Desert", "assets/img/flake/desert.jpg"],
+        ["Basalt", "assets/img/flake/basalt.jpg"],
+        ["Garnet Stone", "assets/img/flake/garnet-stone.jpg"],
+        ["Obsidian", "assets/img/flake/obsidian.jpg"],
+        ["Pumice", "assets/img/flake/pumice.jpg"],
+        ["Schist", "assets/img/flake/schist.jpg"]
+      ]
+    },
+    quartz: {
+      label: "Decorative Quartz",
+      desc: "Colored quartz granules deliver a refined, uniform texture with superior slip resistance — ideal for pool decks, patios, showers, and commercial wet areas.",
+      img: true,
+      colors: [
+        ["Desert Sand", "assets/img/quartz/desert-sand.jpg"],
+        ["Poise", "assets/img/quartz/poise.jpg"],
+        ["Caramel", "assets/img/quartz/caramel.jpg"],
+        ["Slate", "assets/img/quartz/slate.jpg"],
+        ["Coffee", "assets/img/quartz/coffee.jpg"],
+        ["Sandalwood", "assets/img/quartz/sandalwood.jpg"],
+        ["Sage Brush", "assets/img/quartz/sage-brush.jpg"],
+        ["Light Blue", "assets/img/quartz/light-blue.jpg"],
+        ["Blue Granite", "assets/img/quartz/blue-granite.jpg"],
+        ["Black Granite", "assets/img/quartz/black-granite.jpg"]
+      ]
+    },
+    metallic: {
+      label: "Metallic Pigment",
+      desc: "Metallic pigments swirled through clear epoxy create one-of-a-kind, three-dimensional depth. No two metallic floors are ever alike — pure showpiece.",
+      img: true,
+      colors: [
+        ["Black Ice", "assets/img/metallic/black-ice.jpg"],
+        ["Polished Steel", "assets/img/metallic/polished-steel.jpg"],
+        ["Brushed Aluminum", "assets/img/metallic/brushed-aluminum.jpg"],
+        ["Brown Leather", "assets/img/metallic/brown-leather.jpg"],
+        ["Warm Caramel", "assets/img/metallic/warm-caramel.jpg"],
+        ["Pomegranate", "assets/img/metallic/pomegranate.jpg"],
+        ["Sage Green", "assets/img/metallic/sage-green.jpg"],
+        ["Ocean Blue", "assets/img/metallic/ocean-blue.jpg"],
+        ["Burnished Gold", "assets/img/metallic/burnished-gold.jpg"],
+        ["Metal Gray", "assets/img/metallic/metal-gray.jpg"],
+        ["Copper Pot", "assets/img/metallic/copper-pot.jpg"],
+        ["Brilliant Blue", "assets/img/metallic/brilliant-blue.jpg"],
+        ["Earth Brown", "assets/img/metallic/earth-brown.jpg"],
+        ["Sky Blue", "assets/img/metallic/sky-blue.jpg"]
+      ]
+    },
+    tint: {
+      label: "Solid Tint Packs",
+      desc: "Universal tint packs pigment epoxy, polyurea, polyurethane, alkyd, and polyaspartic coatings for a smooth, solid-color finish with advanced color accuracy and stability.",
+      img: false,
+      colors: [
+        ["Black", "#111827"],
+        ["White", "#f9fafb"],
+        ["Dark Gray", "#374151"],
+        ["Forest Green", "#14532d"],
+        ["Dunes Tan", "#c4a87a"],
+        ["Light Gray", "#d1d5db"],
+        ["Navy Gray", "#1e3a5f"],
+        ["Greige", "#b5a99a"],
+        ["Safety Blue", "#1d4ed8"],
+        ["Safety Orange", "#ea580c"],
+        ["Safety Red", "#b91c1c"],
+        ["Safety Yellow", "#ca8a04"],
+        ["Safety Green", "#15803d"],
+        ["Sahara Desert", "#d4a96a"],
+        ["Sand", "#e8d5b7"],
+        ["Silver Gray", "#9ca3af"],
+        ["Super Light Gray", "#e5e7eb"],
+        ["Tile Red", "#9b2226"],
+        ["Armor Gray", "#4b5563"]
+      ]
+    }
+  };
+
+  var grid = document.getElementById("swatchGrid");
+  var chip = document.getElementById("previewChip");
+  var sysEl = document.getElementById("previewSys");
+  var nameEl = document.getElementById("previewName");
+  var descEl = document.getElementById("previewDesc");
+  var current = "flake";
+
+  function bgFor(sys, value) {
+    return sys.img
+      ? "url('" + value + "')"
+      : "linear-gradient(" + value + "," + value + ")";
+  }
+
+  function select(sysKey, name, value, swatchEl) {
+    var sys = SYSTEMS[sysKey];
+    grid.querySelectorAll(".swatch").forEach(function (s) {
+      s.classList.remove("selected");
+    });
+    if (swatchEl) swatchEl.classList.add("selected");
+    chip.style.backgroundImage = bgFor(sys, value);
+    sysEl.textContent = sys.label;
+    nameEl.textContent = name;
+    descEl.textContent = sys.desc;
+  }
+
+  function render(sysKey) {
+    current = sysKey;
+    var sys = SYSTEMS[sysKey];
+    grid.innerHTML = "";
+    sys.colors.forEach(function (c, i) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "swatch" + (i === 0 ? " selected" : "");
+      b.innerHTML =
+        '<span class="chip" style="background-image:' + bgFor(sys, c[1]) + '"></span>' +
+        '<span class="label">' + c[0] + "</span>";
+      b.addEventListener("click", function () {
+        select(sysKey, c[0], c[1], b);
+      });
+      grid.appendChild(b);
+    });
+    var first = sys.colors[0];
+    select(sysKey, first[0], first[1], grid.querySelector(".swatch"));
+  }
+
+  document.querySelectorAll(".picker-tab").forEach(function (tab) {
+    tab.addEventListener("click", function () {
+      document.querySelectorAll(".picker-tab").forEach(function (t) {
+        t.classList.remove("active");
+      });
+      tab.classList.add("active");
+      render(tab.dataset.tab);
+    });
+  });
+
+  render(current);
+})();
+</script>
+</body>
+</html>
