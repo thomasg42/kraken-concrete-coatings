@@ -373,7 +373,20 @@ section { padding: clamp(3.5rem, 8vw, 6.5rem) 0; }
 .ba-label-before { left: 1.2rem; }
 .ba-label-after { right: 1.2rem; border-color: var(--gold); color: var(--gold); }
 @media (max-width: 640px) { .ba-label { display: none; } }
-/* animated epoxy shimmer — placeholder for the real pour video */
+/* epoxy pour video — desktop only, revealed in the second scroll phase */
+.layer-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  will-change: opacity;
+  display: none;
+}
+.scroll-hero.has-video .layer-video { display: block; }
+.scroll-hero.has-video .layer-shimmer { display: none; }
+/* animated epoxy shimmer — mobile fallback for the pour video */
 .layer-shimmer {
   position: absolute;
   inset: 0;

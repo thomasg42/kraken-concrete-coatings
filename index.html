@@ -46,7 +46,8 @@
         <span class="ba-label ba-label-before">Before</span>
         <span class="ba-label ba-label-after">After</span>
         <div class="wipe-line"><span class="wipe-handle">&#x2039;&#x203A;</span></div>
-        <!-- placeholder for real epoxy pour video -->
+        <!-- epoxy pour video (desktop) — shimmer stays as the mobile fallback -->
+        <video class="layer-video" muted loop playsinline preload="none" aria-hidden="true" data-src="assets/video/kraken-pour.mp4"></video>
         <div class="layer-shimmer"></div>
         <div class="hero-scrim"></div>
       </div>
@@ -269,6 +270,7 @@
   var after   = container.querySelector('.layer-after');
   var line    = container.querySelector('.wipe-line');
   var shimmer = container.querySelector('.layer-shimmer');
+  var video   = container.querySelector('.layer-video');
   var layers  = container.querySelectorAll('.layer-before, .layer-after, .ba-label');
   var cue     = container.querySelector('.scroll-cue');
 
@@ -277,6 +279,15 @@
     after.style.clipPath = 'inset(0 50% 0 0)';
     line.style.left = '50%';
     return;
+  }
+
+  // load the pour video on desktop only; mobile keeps the CSS shimmer
+  var hasVideo = false;
+  if (video && window.matchMedia('(min-width: 861px)').matches) {
+    video.src = video.dataset.src;
+    video.load();
+    container.classList.add('has-video');
+    hasVideo = true;
   }
 
   var ticking = false;
@@ -291,14 +302,24 @@
       after.style.clipPath = 'inset(0 ' + (100 - wipePercent) + '% 0 0)';
       line.style.left = wipePercent + '%';
       line.style.opacity = (wipePercent > 0.5 && wipePercent < 99.5) ? 1 : 0;
-      shimmer.style.opacity = 0;
+      if (hasVideo) {
+        video.style.opacity = 0;
+        if (!video.paused) video.pause();
+      } else {
+        shimmer.style.opacity = 0;
+      }
       for (var i = 0; i < layers.length; i++) layers[i].style.opacity = '';
     } else {
-      // 50–100%: photos fade out, epoxy shimmer fades in
+      // 50–100%: photos fade out, epoxy pour video (or shimmer fallback) fades in
       var fade = (scrollProgress - 0.5) / 0.5;
       after.style.clipPath = 'inset(0 0% 0 0)';
       line.style.opacity = 0;
-      shimmer.style.opacity = fade;
+      if (hasVideo) {
+        video.style.opacity = fade;
+        if (fade > 0 && video.paused) video.play().catch(function () {});
+      } else {
+        shimmer.style.opacity = fade;
+      }
       for (var j = 0; j < layers.length; j++) layers[j].style.opacity = 1 - fade;
     }
     if (cue) cue.style.opacity = scrollProgress > 0.02 ? 0 : 1;
