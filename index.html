@@ -37,20 +37,11 @@
 
 <main>
 
-  <!-- HERO — scroll-driven before/after wipe -->
-  <div class="scroll-hero" id="scrollHero">
-    <section class="hero hero-wipe">
-      <div class="hero-layers" aria-hidden="true">
-        <img class="layer-before" src="assets/img/before-cracked-garage.jpg" alt="" fetchpriority="high">
-        <img class="layer-after" src="assets/img/aviation-hangar.jpg" alt="">
-        <span class="ba-label ba-label-before">Before</span>
-        <span class="ba-label ba-label-after">After</span>
-        <div class="wipe-line"><span class="wipe-handle">&#x2039;&#x203A;</span></div>
-        <!-- epoxy pour video (desktop) — shimmer stays as the mobile fallback -->
-        <video class="layer-video" muted loop playsinline preload="none" aria-hidden="true" data-src="assets/video/kraken-pour.mp4"></video>
-        <div class="layer-shimmer"></div>
-        <div class="hero-scrim"></div>
-      </div>
+  <!-- HERO — scroll-driven video (wiki/builds/scroll-driven-hero-video.md) -->
+  <div class="hero-scroll" id="heroScroll">
+    <section class="hero hero-sticky">
+      <video id="heroVideo" src="assets/video/kraken-pour.mp4" muted playsinline preload="auto" aria-hidden="true"></video>
+      <div class="hero-scrim" aria-hidden="true"></div>
       <div class="container hero-content">
         <span class="kicker">Bozeman, Montana</span>
         <h1>Transform Concrete Into <br>Surfaces That <em>Shine Forever</em></h1>
@@ -66,7 +57,7 @@
           <span><strong>100%</strong> Satisfaction</span>
         </div>
       </div>
-      <div class="scroll-cue">Scroll to reveal</div>
+      <div class="scroll-cue">Scroll</div>
     </section>
   </div>
 
@@ -265,71 +256,46 @@
 <script src="assets/nav.js"></script>
 <script>
 (function () {
-  var container = document.getElementById('scrollHero');
-  if (!container) return;
-  var after   = container.querySelector('.layer-after');
-  var line    = container.querySelector('.wipe-line');
-  var shimmer = container.querySelector('.layer-shimmer');
-  var video   = container.querySelector('.layer-video');
-  var layers  = container.querySelectorAll('.layer-before, .layer-after, .ba-label');
-  var cue     = container.querySelector('.scroll-cue');
+  var section = document.getElementById('heroScroll');
+  var video = document.getElementById('heroVideo');
+  var cue = section && section.querySelector('.scroll-cue');
+  if (!section || !video) return;
 
+  // reduced motion: no scrub, no autoplay — static first frame
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    container.classList.add('static');
-    after.style.clipPath = 'inset(0 50% 0 0)';
-    line.style.left = '50%';
+    section.classList.add('static');
     return;
   }
 
-  // load the pour video on desktop only; mobile keeps the CSS shimmer
-  var hasVideo = false;
-  if (video && window.matchMedia('(min-width: 861px)').matches) {
-    video.src = video.dataset.src;
-    video.load();
-    container.classList.add('has-video');
-    hasVideo = true;
+  // mobile <768px: drop the scrub, autoplay loop instead
+  if (window.matchMedia('(max-width: 767px)').matches) {
+    section.classList.add('static');
+    video.loop = true;
+    video.autoplay = true;
+    video.play().catch(function () {});
+    return;
   }
 
-  var ticking = false;
-  function update() {
-    ticking = false;
-    var max = container.offsetHeight - window.innerHeight;
-    var scrollProgress = Math.min(Math.max(window.scrollY / max, 0), 1);
+  // desktop: scroll progress → video.currentTime with lerp smoothing
+  var targetTime = 0;
 
-    if (scrollProgress <= 0.5) {
-      // 0–50%: left-to-right wipe revealing AFTER over BEFORE
-      var wipePercent = (scrollProgress / 0.5) * 100;
-      after.style.clipPath = 'inset(0 ' + (100 - wipePercent) + '% 0 0)';
-      line.style.left = wipePercent + '%';
-      line.style.opacity = (wipePercent > 0.5 && wipePercent < 99.5) ? 1 : 0;
-      if (hasVideo) {
-        video.style.opacity = 0;
-        if (!video.paused) video.pause();
-      } else {
-        shimmer.style.opacity = 0;
-      }
-      for (var i = 0; i < layers.length; i++) layers[i].style.opacity = '';
-    } else {
-      // 50–100%: photos fade out, epoxy pour video (or shimmer fallback) fades in
-      var fade = (scrollProgress - 0.5) / 0.5;
-      after.style.clipPath = 'inset(0 0% 0 0)';
-      line.style.opacity = 0;
-      if (hasVideo) {
-        video.style.opacity = fade;
-        if (fade > 0 && video.paused) video.play().catch(function () {});
-      } else {
-        shimmer.style.opacity = fade;
-      }
-      for (var j = 0; j < layers.length; j++) layers[j].style.opacity = 1 - fade;
-    }
-    if (cue) cue.style.opacity = scrollProgress > 0.02 ? 0 : 1;
-  }
-
-  window.addEventListener('scroll', function () {
-    if (!ticking) { ticking = true; requestAnimationFrame(update); }
-  }, { passive: true });
-  window.addEventListener('resize', update);
-  update();
+  video.addEventListener('loadedmetadata', function () {
+    var onScroll = function () {
+      var rect = section.getBoundingClientRect();
+      var scrollable = section.offsetHeight - window.innerHeight;
+      var progress = Math.min(Math.max(-rect.top / scrollable, 0), 1);
+      targetTime = progress * video.duration;
+      if (cue) cue.style.opacity = progress > 0.02 ? 0 : 1;
+    };
+    var tick = function () {
+      video.currentTime += (targetTime - video.currentTime) * 0.15;
+      requestAnimationFrame(tick);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    onScroll();
+    tick();
+  });
 })();
 </script>
 </body>

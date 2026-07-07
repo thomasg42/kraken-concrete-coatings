@@ -305,110 +305,25 @@ section { padding: clamp(3.5rem, 8vw, 6.5rem) 0; }
 }
 .trust-row strong { color: var(--gold); font-weight: 600; }
 
-/* ---------- scroll-driven before/after hero (index) ---------- */
-.scroll-hero { height: 300vh; position: relative; }
-.scroll-hero .hero-wipe {
+/* ---------- scroll-driven video hero (index) ---------- */
+/* pattern: wiki/builds/scroll-driven-hero-video.md — scrollbar is the play head */
+.hero-scroll { height: 300vh; position: relative; }
+.hero-scroll .hero-sticky {
   position: sticky;
   top: 0;
   height: 100vh;
   height: 100svh;
   min-height: 0;
   padding: calc(var(--nav-h) + 1rem) 0 3.5rem;
+  overflow: hidden;
 }
-.hero-layers { position: absolute; inset: 0; z-index: -1; overflow: hidden; }
-.layer-before, .layer-after {
+#heroVideo {
   position: absolute;
   inset: 0;
+  z-index: -1;
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-.layer-after {
-  clip-path: inset(0 100% 0 0);
-  will-change: clip-path;
-}
-.wipe-line {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 3px;
-  margin-left: -1.5px;
-  background: var(--gold);
-  box-shadow: 0 0 22px rgba(255, 107, 0, 0.85);
-  opacity: 0;
-  will-change: left;
-}
-.wipe-handle {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: var(--gold);
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.3rem;
-  font-weight: 600;
-  letter-spacing: 0.15em;
-  text-indent: 0.15em;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45);
-}
-.ba-label {
-  position: absolute;
-  top: calc(var(--nav-h) + 1.2rem);
-  font-family: var(--font-display);
-  font-size: 1rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  padding: 0.3rem 0.9rem 0.18rem;
-  background: rgba(26, 26, 26, 0.65);
-  border: 1px solid var(--line-light);
-  color: var(--ink-light-dim);
-}
-.ba-label-before { left: 1.2rem; }
-.ba-label-after { right: 1.2rem; border-color: var(--gold); color: var(--gold); }
-@media (max-width: 640px) { .ba-label { display: none; } }
-/* epoxy pour video — desktop only, revealed in the second scroll phase */
-.layer-video {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0;
-  will-change: opacity;
-  display: none;
-}
-.scroll-hero.has-video .layer-video { display: block; }
-.scroll-hero.has-video .layer-shimmer { display: none; }
-/* animated epoxy shimmer — mobile fallback for the pour video */
-.layer-shimmer {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  will-change: opacity;
-  background:
-    linear-gradient(115deg,
-      transparent 32%,
-      rgba(255, 107, 0, 0.22) 44%,
-      rgba(255, 255, 255, 0.16) 50%,
-      rgba(255, 107, 0, 0.22) 56%,
-      transparent 68%),
-    radial-gradient(140% 90% at 50% 115%, rgba(255, 107, 0, 0.2), transparent 60%),
-    radial-gradient(120% 70% at 20% -10%, rgba(255, 107, 0, 0.12), transparent 55%),
-    #1a1a1a;
-  background-size: 300% 300%, 100% 100%, 100% 100%, 100% 100%;
-  animation: epoxy-shimmer 5s ease-in-out infinite;
-}
-@keyframes epoxy-shimmer {
-  0%   { background-position: 120% 0, 0 0, 0 0, 0 0; }
-  50%  { background-position: -20% 0, 0 0, 0 0, 0 0; }
-  100% { background-position: 120% 0, 0 0, 0 0, 0 0; }
 }
 .hero-scrim {
   position: absolute;
@@ -432,13 +347,12 @@ section { padding: clamp(3.5rem, 8vw, 6.5rem) 0; }
   0%, 100% { transform: translate(-50%, 0); }
   50% { transform: translate(-50%, 6px); }
 }
-/* reduced motion: no scroll-jack, show a static half-wipe */
-.scroll-hero.static { height: auto; }
-.scroll-hero.static .hero-wipe { position: relative; height: auto; min-height: 92vh; }
-.scroll-hero.static .scroll-cue, .scroll-hero.static .layer-shimmer { display: none; }
-.scroll-hero.static .wipe-line { opacity: 1; }
+/* static mode: mobile autoplay-loop fallback + reduced motion — no scroll-jack */
+.hero-scroll.static { height: auto; }
+.hero-scroll.static .hero-sticky { position: relative; height: auto; min-height: 92vh; }
+.hero-scroll.static .scroll-cue { display: none; }
 @media (prefers-reduced-motion: reduce) {
-  .layer-shimmer, .scroll-cue { animation: none; }
+  .scroll-cue { animation: none; }
 }
 
 /* page hero (interior pages — light) */
