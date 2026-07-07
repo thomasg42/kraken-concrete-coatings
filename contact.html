@@ -53,24 +53,24 @@
         <div class="reveal">
           <span class="kicker">Request A Quote</span>
           <h2 style="margin-bottom:1.6rem">Tell Us About Your Project</h2>
-          <form class="form-grid" id="quoteForm" action="https://tggai.app.n8n.cloud/webhook/kraken-lead" method="POST">
+          <form class="form-grid" id="quoteForm" action="https://tggai.app.n8n.cloud/webhook/meta-lead" method="POST">
             <input type="hidden" name="source" value="krakenconcretecoatings.com">
             <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
             <div>
               <label for="f-name">Name</label>
-              <input id="f-name" type="text" name="name" required autocomplete="name">
+              <input id="f-name" type="text" name="fields[name][value]" required autocomplete="name">
             </div>
             <div>
               <label for="f-phone">Phone</label>
-              <input id="f-phone" type="tel" name="phone" required autocomplete="tel">
+              <input id="f-phone" type="tel" name="fields[field_e62922a][value]" required autocomplete="tel">
             </div>
             <div class="full">
               <label for="f-email">Email</label>
-              <input id="f-email" type="email" name="email" required autocomplete="email">
+              <input id="f-email" type="email" name="fields[email][value]" required autocomplete="email">
             </div>
             <div class="full">
               <label for="f-msg">Project Details</label>
-              <textarea id="f-msg" name="message" placeholder="Approximate square footage, current condition, timeline…"></textarea>
+              <textarea id="f-msg" name="fields[field_15a1024][raw_value]" placeholder="Approximate square footage, current condition, timeline…"></textarea>
             </div>
             <div class="full">
               <button class="btn" type="submit">Send Quote Request</button>
