@@ -347,18 +347,12 @@ section { padding: clamp(3.5rem, 8vw, 6.5rem) 0; }
   0%, 100% { transform: translate(-50%, 0); }
   50% { transform: translate(-50%, 6px); }
 }
-/* static mode: mobile autoplay-loop fallback + reduced motion — no scroll-jack */
+/* static mode: reduced-motion only — no scroll-jack */
 .hero-scroll.static { height: auto; }
 .hero-scroll.static .hero-sticky { position: relative; height: auto; min-height: 92vh; }
 .hero-scroll.static .scroll-cue { display: none; }
 @media (prefers-reduced-motion: reduce) {
   .scroll-cue { animation: none; }
-}
-/* mobile: same fallback as .static, applied via CSS so it's not gated on JS timing */
-@media (max-width: 767px) {
-  .hero-scroll { height: auto; }
-  .hero-scroll .hero-sticky { position: relative; height: auto; min-height: 92vh; }
-  .hero-scroll .scroll-cue { display: none; }
 }
 
 /* page hero (interior pages — light) */

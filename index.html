@@ -40,7 +40,7 @@
   <!-- HERO — scroll-driven video (wiki/builds/scroll-driven-hero-video.md) -->
   <div class="hero-scroll" id="heroScroll">
     <section class="hero hero-sticky">
-      <video id="heroVideo" src="assets/video/kraken-pour.mp4" muted playsinline preload="auto" aria-hidden="true"></video>
+      <video id="heroVideo" src="assets/video/kraken-pour.mp4" muted playsinline preload="metadata" aria-hidden="true"></video>
       <div class="hero-scrim" aria-hidden="true"></div>
       <div class="container hero-content">
         <span class="kicker">Bozeman, Montana</span>
@@ -261,23 +261,16 @@
   var cue = section && section.querySelector('.scroll-cue');
   if (!section || !video) return;
 
-  // reduced motion: no scrub, no autoplay — static first frame
+  // reduced motion: no scrub — static first frame
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     section.classList.add('static');
     return;
   }
 
-  // mobile <768px: drop the scrub, autoplay loop instead
-  if (window.matchMedia('(max-width: 767px)').matches) {
-    section.classList.add('static');
-    video.loop = true;
-    video.autoplay = true;
-    video.play().catch(function () {});
-    return;
-  }
-
-  // desktop: scroll progress → video.currentTime with lerp smoothing
+  // scroll progress → video.currentTime, same mechanic on mobile and desktop
+  // mobile uses a snappier lerp factor to compensate for slower devices
   var targetTime = 0;
+  var isMobile = window.innerWidth < 768;
 
   video.addEventListener('loadedmetadata', function () {
     var onScroll = function () {
@@ -288,11 +281,17 @@
       if (cue) cue.style.opacity = progress > 0.02 ? 0 : 1;
     };
     var tick = function () {
-      video.currentTime += (targetTime - video.currentTime) * 0.15;
+      var lerpFactor = isMobile ? 0.25 : 0.15;
+      if (Math.abs(video.currentTime - targetTime) > 0.01) {
+        video.currentTime += (targetTime - video.currentTime) * lerpFactor;
+      }
       requestAnimationFrame(tick);
     };
     window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
+    window.addEventListener('resize', function () {
+      isMobile = window.innerWidth < 768;
+      onScroll();
+    });
     onScroll();
     tick();
   });
