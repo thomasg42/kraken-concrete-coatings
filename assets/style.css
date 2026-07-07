@@ -222,7 +222,7 @@ section { padding: clamp(3.5rem, 8vw, 6.5rem) 0; }
   display: block;
   width: 24px;
   height: 2px;
-  background: var(--ink);
+  background: var(--gold);
   margin: 5px auto;
   transition: transform 0.25s ease, opacity 0.2s ease;
 }
@@ -250,7 +250,7 @@ section { padding: clamp(3.5rem, 8vw, 6.5rem) 0; }
     font-family: var(--font-display);
     font-size: 2rem;
     letter-spacing: 0.08em;
-    color: var(--ink);
+    color: var(--gold);
   }
 }
 
@@ -353,6 +353,12 @@ section { padding: clamp(3.5rem, 8vw, 6.5rem) 0; }
 .hero-scroll.static .scroll-cue { display: none; }
 @media (prefers-reduced-motion: reduce) {
   .scroll-cue { animation: none; }
+}
+/* mobile: same fallback as .static, applied via CSS so it's not gated on JS timing */
+@media (max-width: 767px) {
+  .hero-scroll { height: auto; }
+  .hero-scroll .hero-sticky { position: relative; height: auto; min-height: 92vh; }
+  .hero-scroll .scroll-cue { display: none; }
 }
 
 /* page hero (interior pages — light) */
