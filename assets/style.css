@@ -230,15 +230,34 @@ section { padding: clamp(3.5rem, 8vw, 6.5rem) 0; }
 .nav-toggle.open span:nth-child(2) { opacity: 0; }
 .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
+/* Desktop: keep floor choices out of the top bar (Services still links to the page) */
+.nav-sub { display: none; list-style: none; }
+
 @media (max-width: 860px) {
   .nav-toggle { display: block; }
   .nav-cta { display: none; }
+  /*
+    Nav uses backdrop-filter, which makes .nav the containing block for
+    position:fixed descendants. inset:0 therefore only filled the 76px
+    header bar — Home + Services clipped above the fold, leaving only
+    Projects / About / Contact visible. Size against the viewport instead.
+  */
   .nav-links {
     position: fixed;
-    inset: 0;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    box-sizing: border-box;
     flex-direction: column;
-    justify-content: center;
-    gap: 2.2rem;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1.35rem;
+    padding: calc(var(--nav-h) + 1.6rem) 1.5rem 2.5rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
     background: rgba(255, 255, 255, 0.97);
     backdrop-filter: blur(18px);
     transform: translateX(100%);
@@ -246,12 +265,42 @@ section { padding: clamp(3.5rem, 8vw, 6.5rem) 0; }
     z-index: 101;
   }
   .nav-links.open { transform: translateX(0); }
-  .nav-links a {
+  .nav-links > li.has-sub {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .nav-links > li > a {
     font-family: var(--font-display);
-    font-size: 2rem;
+    font-size: 1.85rem;
     letter-spacing: 0.08em;
     color: var(--gold);
   }
+  .nav-sub {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.7rem;
+  }
+  .nav-sub a {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    color: var(--ink-dim);
+    padding: 0.15rem 0;
+  }
+  .nav-sub a:hover,
+  .nav-sub a.active { color: var(--gold); }
+}
+
+/* Anchor targets under the fixed header */
+#garage,
+#driveway,
+#patio,
+#commercial {
+  scroll-margin-top: calc(var(--nav-h) + 1rem);
 }
 
 /* ---------- hero (dark contrast section — photo underlay) ---------- */

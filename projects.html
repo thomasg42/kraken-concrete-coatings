@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="assets/style.css?v=nav-services-1">
 
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Kraken Concrete Coatings">
@@ -76,7 +76,15 @@
     <nav>
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
-        <li><a href="services.html">Services</a></li>
+        <li class="has-sub">
+          <a href="services.html">Services</a>
+          <ul class="nav-sub">
+            <li><a href="services.html#garage">Garage Floors</a></li>
+            <li><a href="services.html#driveway">Driveways</a></li>
+            <li><a href="services.html#patio">Patios</a></li>
+            <li><a href="services.html#commercial">Commercial</a></li>
+          </ul>
+        </li>
         <li><a href="projects.html">Projects</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="contact.html">Contact</a></li>
@@ -251,6 +259,6 @@
   </div>
 </footer>
 
-<script src="assets/nav.js"></script>
+<script src="assets/nav.js?v=nav-services-1"></script>
 </body>
 </html>

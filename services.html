@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="assets/style.css?v=nav-services-1">
 
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Kraken Concrete Coatings">
@@ -76,7 +76,15 @@
     <nav>
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
-        <li><a href="services.html">Services</a></li>
+        <li class="has-sub">
+          <a href="services.html">Services</a>
+          <ul class="nav-sub">
+            <li><a href="services.html#garage">Garage Floors</a></li>
+            <li><a href="services.html#driveway">Driveways</a></li>
+            <li><a href="services.html#patio">Patios</a></li>
+            <li><a href="services.html#commercial">Commercial</a></li>
+          </ul>
+        </li>
         <li><a href="projects.html">Projects</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="contact.html">Contact</a></li>
@@ -103,7 +111,7 @@
   <section>
     <div class="container">
       <div class="grid-2">
-        <div class="card service-card reveal">
+        <div class="card service-card reveal" id="garage">
           <figure><picture><source srcset="assets/img/garage-two-tone.webp" type="image/webp"><img src="assets/img/garage-two-tone.jpg" alt="Epoxy coated residential garage floor" loading="lazy"></picture></figure>
           <div class="body">
             <h3>Garage Floor Coatings</h3>
@@ -116,7 +124,7 @@
             </ul>
           </div>
         </div>
-        <div class="card service-card reveal">
+        <div class="card service-card reveal" id="driveway">
           <figure><picture><source srcset="assets/img/full-driveway.webp" type="image/webp"><img src="assets/img/full-driveway.jpg" alt="Decorative flake coated driveway" loading="lazy"></picture></figure>
           <div class="body">
             <h3>Driveway Coatings</h3>
@@ -129,7 +137,7 @@
             </ul>
           </div>
         </div>
-        <div class="card service-card reveal">
+        <div class="card service-card reveal" id="patio">
           <figure><picture><source srcset="assets/img/pool-deck-blue.webp" type="image/webp"><img src="assets/img/pool-deck-blue.jpg" alt="Coated pool deck surface" loading="lazy"></picture></figure>
           <div class="body">
             <h3>Patio Coatings</h3>
@@ -142,7 +150,7 @@
             </ul>
           </div>
         </div>
-        <div class="card service-card reveal">
+        <div class="card service-card reveal" id="commercial">
           <figure><picture><source srcset="assets/img/warehouse-flake.webp" type="image/webp"><img src="assets/img/warehouse-flake.jpg" alt="Commercial epoxy flake floor in warehouse" loading="lazy"></picture></figure>
           <div class="body">
             <h3>Commercial Coatings</h3>
@@ -260,7 +268,7 @@
   </div>
 </footer>
 
-<script src="assets/nav.js"></script>
+<script src="assets/nav.js?v=nav-services-1"></script>
 <script>
 /* ---- Color picker ---- */
 (function () {

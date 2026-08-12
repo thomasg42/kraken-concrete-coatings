@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="assets/style.css?v=nav-services-1">
 
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Kraken Concrete Coatings">
@@ -66,7 +66,15 @@
     <nav>
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
-        <li><a href="services.html">Services</a></li>
+        <li class="has-sub">
+          <a href="services.html">Services</a>
+          <ul class="nav-sub">
+            <li><a href="services.html#garage">Garage Floors</a></li>
+            <li><a href="services.html#driveway">Driveways</a></li>
+            <li><a href="services.html#patio">Patios</a></li>
+            <li><a href="services.html#commercial">Commercial</a></li>
+          </ul>
+        </li>
         <li><a href="projects.html">Projects</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="contact.html">Contact</a></li>
@@ -131,28 +139,28 @@
         <p>Residential and commercial concrete coatings using professional-grade Citadel Floors products — installed with meticulous prep and zero shortcuts.</p>
       </div>
       <div class="grid-2">
-        <a class="card service-card reveal" href="services.html">
+        <a class="card service-card reveal" href="services.html#garage">
           <figure><picture><source srcset="assets/img/garage-two-tone.webp" type="image/webp"><img src="assets/img/garage-two-tone.jpg" alt="Glossy epoxy garage floor coating" loading="lazy"></picture></figure>
           <div class="body">
             <h3>Garage Floor Coatings</h3>
             <p>Showroom-perfect floors that resist oil, hot tires, and Montana winters. Installed in as little as one day.</p>
           </div>
         </a>
-        <a class="card service-card reveal" href="services.html">
+        <a class="card service-card reveal" href="services.html#driveway">
           <figure><picture><source srcset="assets/img/full-driveway.webp" type="image/webp"><img src="assets/img/full-driveway.jpg" alt="Decorative flake driveway coating" loading="lazy"></picture></figure>
           <div class="body">
             <h3>Driveway Coatings</h3>
             <p>Weatherproof decorative flake systems that revive cracked driveways and boost curb appeal for decades.</p>
           </div>
         </a>
-        <a class="card service-card reveal" href="services.html">
+        <a class="card service-card reveal" href="services.html#patio">
           <figure><picture><source srcset="assets/img/backyard-patio.webp" type="image/webp"><img src="assets/img/backyard-patio.jpg" alt="Coated backyard concrete patio" loading="lazy"></picture></figure>
           <div class="body">
             <h3>Patio Coatings</h3>
             <p>Turn patios and pool decks into stunning, slip-resistant outdoor living spaces that handle every season.</p>
           </div>
         </a>
-        <a class="card service-card reveal" href="services.html">
+        <a class="card service-card reveal" href="services.html#commercial">
           <figure><picture><source srcset="assets/img/warehouse-flake.webp" type="image/webp"><img src="assets/img/warehouse-flake.jpg" alt="Commercial flake epoxy floor in a warehouse" loading="lazy"></picture></figure>
           <div class="body">
             <h3>Commercial Coatings</h3>
@@ -297,7 +305,7 @@
   </div>
 </footer>
 
-<script src="assets/nav.js"></script>
+<script src="assets/nav.js?v=nav-services-1"></script>
 <script>
 (function () {
   var section = document.getElementById('heroScroll');
