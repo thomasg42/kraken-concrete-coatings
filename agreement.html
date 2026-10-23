@@ -122,22 +122,33 @@
     .swatch:has(input:focus-visible) { outline: 3px solid var(--blue); }
     .family { margin-top: 1.4rem; }
     .family h3 { margin-bottom: 0.55rem; }
+    .family-preferred {
+      margin-top: 0.2rem; padding: 1rem; background: #eef4ff; border: 2px solid var(--blue);
+    }
+    .family-preferred h3 { color: var(--blue-ink); font-size: 2.3rem; }
+    .family-preferred .chip { height: 132px; filter: saturate(1.45) contrast(1.08); }
+    .prefer { margin: 0 0 0.85rem; color: var(--blue-ink); font-weight: 700; }
+    .req {
+      display: inline-block; margin-left: 0.45rem; padding: 0.1rem 0.45rem;
+      background: var(--warn); color: white; font-family: Inter, sans-serif;
+      font-size: 0.72rem; letter-spacing: 0.08em; vertical-align: middle;
+    }
     .order {
       background: var(--black); color: white; padding: 1rem 1.1rem; margin-top: 1.2rem;
     }
     .order h3 { margin-top: 0; }
     .order p, .order li { color: rgba(255,255,255,0.88); }
     .order ul { margin: 0.4rem 0 0; padding-left: 1.2rem; }
-    .workplace { margin: 1.2rem 0 1rem; }
+    .workplace { margin: 1.4rem 0 0.4rem; padding-top: 0.4rem; }
     .drop {
-      position: relative; border: 2px dashed #8aa0bd; background: white; padding: 1.1rem;
-      display: grid; gap: 0.7rem; justify-items: start;
+      border: 2px dashed var(--blue); background: #f8fbff; padding: 1rem;
+      display: grid; gap: 0.7rem;
     }
-    .drop.over { border-color: var(--blue); background: #e8eef8; }
+    .drop.over { background: #e8eef8; }
     .drop p { margin: 0; }
-    .file-input {
-      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden;
-      clip: rect(0, 0, 0, 0); border: 0;
+    .drop input[type="file"] {
+      display: block; width: 100%; font: inherit; font-weight: 650;
+      padding: 0.85rem; border: 1px solid var(--blue); background: white; color: var(--ink);
     }
     .btn, .ghost {
       display: inline-block; font: inherit; cursor: pointer; border: 1px solid var(--blue); background: var(--blue); color: white;
@@ -257,17 +268,6 @@
         <p class="kicker">The work</p>
         <h2>What you are getting into.</h2>
         <p class="lede">Same system Kraken publishes on the site: diamond grinding, crack repair, moisture testing, an epoxy base, decorative flake to full coverage, and a polyaspartic topcoat. A typical garage is installed in as little as one day. Your proposal holds the schedule for your slab.</p>
-        <div class="workplace" id="workplace">
-          <h3>The area we will be working in</h3>
-          <p class="note">Add photos or videos of this job from your phone. Open your photos, drag them in, or paste them. They stay on this device for this signing, and their names go on the downloaded copy. They do not change the public page.</p>
-          <div class="drop" id="drop" tabindex="0">
-            <p>Drop photos or videos here, or click the box and paste.</p>
-            <label class="btn" for="jobMedia">Open photos</label>
-            <input class="file-input" id="jobMedia" type="file" accept="image/*,video/*" multiple>
-          </div>
-          <div class="media-list" id="mediaList"></div>
-          <p class="note" id="mediaNote"></p>
-        </div>
         <div class="steps">
             <article class="step">
               <h3>1. The concrete, as it is</h3>
@@ -307,7 +307,7 @@
         <div class="wrap sheet">
           <p class="kicker">Materials</p>
           <h2>All 58 colors.</h2>
-          <p class="lede">Flake, quartz, metallic, and solid tint, the same groups as the <a href="services.html">services page</a>. Select every color this job needs. Each one you check is added to the order.</p>
+          <p class="lede">We prefer decorative flake. The longevity is much better than quartz, metallic, or solid tint. All 58 colors are here, in the same groups as the <a href="services.html">services page</a>. Select every color this job needs.</p>
           <div id="catalog"></div>
           <div class="order" id="orderBox" aria-live="polite">
             <h3>This is the color that you want.</h3>
@@ -339,7 +339,7 @@
         <div class="wrap sheet">
           <p class="kicker">The agreement</p>
           <h2>Check every line. Sign once.</h2>
-          <p class="lede">The signature covers this whole page: the work you looked at, the colors you selected, the three responsibilities, and the warranty.</p>
+          <p class="lede">The signature covers this whole page: the work you looked at, the colors you selected, the photos of the area, the three responsibilities, and the warranty.</p>
           <div class="order" id="orderEnd" aria-live="polite">
             <h3>This is the color that you want.</h3>
             <p id="orderEmptyEnd">Nothing selected yet. The colors you check above are the ones to order.</p>
@@ -352,7 +352,7 @@
           <label class="clause"><input type="checkbox" data-clause="seen"> <span>I have looked at the photos and watched the coating video on this page, or I have been shown the same work in person.</span></label>
           <label class="clause"><input type="checkbox" data-clause="notice"> <span>I understand the adhesion warranty is void if I do not contact Kraken within the notice window when something is wrong with the coating.</span></label>
           <label class="clause"><input type="checkbox" data-clause="prep"> <span>I understand the adhesion warranty is void if the area was not cleared, my things were left in the way, or I was not ready on time.</span></label>
-          <label class="clause"><input type="checkbox" data-clause="choices"> <span>The address, date, colors, and notice window on this page are the ones for my job.</span></label>
+          <label class="clause"><input type="checkbox" data-clause="choices"> <span>The address, date, colors, photos of the work area, and notice window on this page are the ones for my job.</span></label>
           <label class="clause"><input type="checkbox" data-clause="all"> <span>I agree to this whole page.</span></label>
 
           <h3 style="margin-top:1.6rem;">The job</h3>
@@ -375,6 +375,17 @@
             </label>
           </div>
           <p class="note">There is no single notice window baked into this page. The words you write here are the window you are agreeing to. Emmanuel can also send a link with <code>?notice=</code> already filled.</p>
+
+          <div class="workplace" id="workplace">
+            <h3>Photos of the area we will be working in <span class="req">Required</span></h3>
+            <p>Add photos or a video of this job before you sign. Open the photos on your phone, drag them into the box, or paste them. Kraken needs to see the area.</p>
+            <div class="drop" id="drop" tabindex="0">
+              <input id="jobMedia" name="jobMedia" type="file" accept="image/*,video/*,.heic,.heif,.jpg,.jpeg,.png,.webp,.mov,.mp4,.m4v" multiple required>
+              <p>Or drop photos here. You can also click this box and paste.</p>
+            </div>
+            <div class="media-list" id="mediaList"></div>
+            <p class="note" id="mediaNote">No photos yet. At least one is required.</p>
+          </div>
 
           <h3>Signature</h3>
           <div class="sign-box">
@@ -506,15 +517,21 @@
       ["flake", "quartz", "metallic", "tint"].forEach(function (key) {
         var pack = SYSTEMS[key];
         var family = document.createElement("div");
-        family.className = "family";
+        family.className = key === "flake" ? "family family-preferred" : "family";
         var heading = document.createElement("h3");
-        heading.textContent = pack[0];
+        heading.textContent = key === "flake" ? "Decorative flake" : pack[0];
+        family.appendChild(heading);
+        if (key === "flake") {
+          var prefer = document.createElement("p");
+          prefer.className = "prefer";
+          prefer.textContent = "We prefer decorative flake. The longevity is much better than quartz, metallic, or solid tint.";
+          family.appendChild(prefer);
+        }
         var grid = document.createElement("div");
         grid.className = "swatches";
         pack[1].forEach(function (row) {
           grid.appendChild(swatch(pack[0], row[0], row[1]));
         });
-        family.appendChild(heading);
         family.appendChild(grid);
         catalog.appendChild(family);
       });
@@ -639,22 +656,69 @@
       }
 
       var added = [];
+      var pending = 0;
       var mediaList = document.getElementById("mediaList");
       var mediaNote = document.getElementById("mediaNote");
       var drop = document.getElementById("drop");
+      function isMedia(file) {
+        var type = (file.type || "").toLowerCase();
+        var name = (file.name || "").toLowerCase();
+        if (type.indexOf("image/") === 0 || type.indexOf("video/") === 0) return true;
+        return /\.(jpe?g|png|gif|webp|heic|heif|bmp|mov|mp4|m4v|webm)$/.test(name);
+      }
+      function isVideo(file) {
+        var type = (file.type || "").toLowerCase();
+        var name = (file.name || "").toLowerCase();
+        return type.indexOf("video/") === 0 || /\.(mov|mp4|m4v|webm)$/.test(name);
+      }
+      function noteMedia() {
+        if (pending) {
+          mediaNote.textContent = "Reading the photos…";
+          return;
+        }
+        if (!added.length) {
+          mediaNote.textContent = "No photos yet. At least one is required.";
+          return;
+        }
+        mediaNote.textContent = added.length + (added.length === 1 ? " photo or video added. You can add more." : " photos or videos added. You can add more.");
+      }
+      function showMedia(item) {
+        var box = document.createElement(item.video ? "video" : "img");
+        box.src = item.url;
+        if (box.tagName === "VIDEO") { box.controls = true; box.playsInline = true; }
+        box.alt = item.name;
+        mediaList.appendChild(box);
+      }
+      function copyImage(file, done) {
+        var reader = new FileReader();
+        reader.onload = function () {
+          var img = new Image();
+          img.onload = function () {
+            var max = 1400;
+            var scale = Math.min(1, max / Math.max(img.width || 1, img.height || 1));
+            var canvas = document.createElement("canvas");
+            canvas.width = Math.max(1, Math.round((img.width || 1) * scale));
+            canvas.height = Math.max(1, Math.round((img.height || 1) * scale));
+            canvas.getContext("2d").drawImage(img, 0, 0, canvas.width, canvas.height);
+            try { done(canvas.toDataURL("image/jpeg", 0.72)); }
+            catch (err) { done(reader.result); }
+          };
+          img.onerror = function () { done(typeof reader.result === "string" ? reader.result : ""); };
+          img.src = reader.result;
+        };
+        reader.onerror = function () { done(""); };
+        reader.readAsDataURL(file);
+      }
       function addFiles(fileList) {
         if (document.getElementById("agreement").dataset.locked === "yes") return;
         Array.prototype.forEach.call(fileList, function (file) {
           if (!file) return;
-          var isPic = file.type.indexOf("image/") === 0 || file.type.indexOf("video/") === 0;
-          if (!isPic) {
+          if (!isMedia(file)) {
             mediaNote.textContent = (file.name || "That file") + " is not a photo or video.";
             return;
           }
-          if (added.some(function (item) {
-            return item.name === file.name && item.size === file.size;
-          })) return;
-          if (added.length >= 8) {
+          if (added.some(function (item) { return item.name === file.name && item.size === file.size; })) return;
+          if (added.length + pending >= 8) {
             mediaNote.textContent = "Eight files is the limit for one signing.";
             return;
           }
@@ -662,14 +726,28 @@
             mediaNote.textContent = file.name + " is over 80 MB and was not added.";
             return;
           }
-          var url = URL.createObjectURL(file);
-          added.push({ name: file.name || "Pasted photo", type: file.type, size: file.size, url: url });
-          var box = document.createElement(file.type.indexOf("video") === 0 ? "video" : "img");
-          box.src = url;
-          if (box.tagName === "VIDEO") { box.controls = true; box.playsInline = true; }
-          box.alt = file.name || "Workplace photo";
-          mediaList.appendChild(box);
-          mediaNote.textContent = added.length + (added.length === 1 ? " workplace file added." : " workplace files added.");
+          var item = {
+            name: file.name || (isVideo(file) ? "Pasted video" : "Pasted photo"),
+            size: file.size,
+            video: isVideo(file),
+            url: URL.createObjectURL(file),
+            dataUrl: ""
+          };
+          if (item.video) {
+            added.push(item);
+            showMedia(item);
+            noteMedia();
+            return;
+          }
+          pending += 1;
+          noteMedia();
+          copyImage(file, function (dataUrl) {
+            pending = Math.max(0, pending - 1);
+            item.dataUrl = dataUrl || "";
+            added.push(item);
+            showMedia(item);
+            noteMedia();
+          });
         });
       }
       function filesFromClipboard(data) {
@@ -758,6 +836,8 @@
         if (!val("startDate")) gaps.push("Add the scheduled start.");
         if (!val("notice") || val("notice").length < 2) gaps.push("Write the warranty notice window for this job.");
         if (!selectedColors().length) gaps.push("Select at least one color.");
+        if (pending) gaps.push("Wait for the photos to finish loading, then sign.");
+        if (!added.length) gaps.push("Add at least one photo or video of the area we will be working in.");
         if (!signatureURL()) gaps.push("Draw your signature or type your name in the signature line.");
         return gaps;
       }
@@ -778,7 +858,11 @@
         var gaps = missing();
         if (gaps.length) {
           status.textContent = gaps.join(" ");
-          var first = form.querySelector("[data-clause]:not(:checked)") || document.getElementById("name");
+          var first = form.querySelector("[data-clause]:not(:checked)");
+          if (!first && !val("name")) first = document.getElementById("name");
+          if (!first && !added.length) first = document.getElementById("jobMedia");
+          if (!first) first = document.getElementById("name");
+          if (!added.length) document.getElementById("workplace").scrollIntoView({ behavior: motion ? "auto" : "smooth", block: "center" });
           if (first) first.focus();
           return;
         }
@@ -797,7 +881,9 @@
           clauses: [].map.call(form.querySelectorAll("[data-clause]"), function (box) {
             return box.parentElement.querySelector("span").textContent.trim();
           }),
-          media: added.map(function (item) { return item.name; })
+          media: added.map(function (item) {
+            return { name: item.name, dataUrl: item.dataUrl || "", video: !!item.video };
+          })
         };
         form.dataset.locked = "yes";
         form.querySelectorAll("input, select, textarea, button").forEach(function (el) {
@@ -818,7 +904,12 @@
         var clauses = signed.clauses.map(function (line) {
           return "<li>" + escapeHtml(line) + "</li>";
         }).join("");
-        var media = signed.media.length ? "<p>Workplace photos and videos: " + escapeHtml(signed.media.join(", ")) + "</p>" : "";
+        var media = signed.media.map(function (item) {
+          if (item.dataUrl) {
+            return "<figure><img alt=\"" + escapeHtml(item.name) + "\" src=\"" + item.dataUrl + "\"><figcaption>" + escapeHtml(item.name) + "</figcaption></figure>";
+          }
+          return "<p>Video shown at signing: " + escapeHtml(item.name) + "</p>";
+        }).join("");
         var colors = signed.colors.map(function (line) { return "<li>" + escapeHtml(line) + "</li>"; }).join("");
         return "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\"><title>" +
           escapeHtml(signed.id) + "</title><style>body{font-family:Georgia,serif;max-width:740px;margin:2rem auto;padding:0 1rem;color:#14181e}img{max-width:420px;background:#fff}</style></head><body>" +
@@ -828,7 +919,8 @@
           "<p>Surface: " + escapeHtml(signed.surface) + "<br>Scheduled start: " + escapeHtml(signed.start) +
           "<br>Warranty notice window: " + escapeHtml(signed.notice) + "</p>" +
           "<h2>This is the color that you want.</h2><ul>" + colors + "</ul>" +
-          "<h2>Agreed</h2><ul>" + clauses + "</ul>" + media +
+          "<h2>Photos of the work area</h2>" + media +
+          "<h2>Agreed</h2><ul>" + clauses + "</ul>" +
           "<h2>Signature</h2><img alt=\"Signature\" src=\"" + signed.sign + "\">" +
           "<p>Lifetime adhesion warranty. Void if the customer does not contact Kraken inside the notice window when something is wrong with the coating, or if the work area was not cleared, belongings were left in the way, or the customer was not ready at the scheduled start.</p>" +
           "<p>Kraken Concrete Coatings LLC · Bozeman, Montana · (406) 223-9149 · krakencoatingsllc@gmail.com</p>" +
