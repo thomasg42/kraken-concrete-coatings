@@ -36,15 +36,39 @@
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
+      position: relative;
       margin: 0;
-      background:
-        radial-gradient(900px 420px at 100% -10%, rgba(29, 78, 216, 0.16), transparent 55%),
-        var(--paper);
+      background: #10141c;
       color: var(--ink);
       font-family: Inter, "Segoe UI", sans-serif;
       font-size: 17px;
       line-height: 1.6;
     }
+    .levels {
+      position: absolute; inset: 0; z-index: 0; display: grid; grid-template-rows: repeat(8, 1fr);
+      pointer-events: none;
+    }
+    .level {
+      background-repeat: repeat;
+      background-size: 620px auto;
+      background-position: center;
+    }
+    .l1 { background-image: url("assets/img/flake/denim.webp"); }
+    .l2 { background-image: url("assets/img/flake/tidal-wave.webp"); }
+    .l3 { background-image: url("assets/img/flake/domino.webp"); }
+    .l4 { background-image: url("assets/img/flake/nightfall.webp"); }
+    .l5 { background-image: url("assets/img/flake/garnet-stone.webp"); }
+    .l6 { background-image: url("assets/img/flake/creekbed.webp"); }
+    .l7 { background-image: url("assets/img/flake/cabin-fever.webp"); }
+    .l8 { background-image: url("assets/img/flake/gravel.webp"); }
+    .level { position: relative; }
+    .level::after {
+      content: ""; position: absolute; inset: 0;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.2), transparent 16%, transparent 76%, rgba(0,0,0,.2)),
+        linear-gradient(118deg, rgba(255,255,255,.32) 0%, rgba(255,255,255,0) 20%, transparent 55%, rgba(255,255,255,.16) 74%, transparent 90%);
+    }
+    .progress, main, footer.foot { position: relative; z-index: 1; }
     img, video { max-width: 100%; display: block; }
     img[hidden] { display: none !important; }
     section, .step, .workplace { scroll-margin-top: 84px; }
@@ -73,8 +97,8 @@
     .top nav { display: flex; gap: 1.1rem; margin-left: auto; }
     .top nav a, .phone { color: white; text-decoration: none; font-size: 0.92rem; font-weight: 600; }
     .phone { border: 1px solid rgba(255,255,255,0.35); padding: 0.45rem 0.75rem; }
-    .wrap { width: min(1120px, 92vw); margin: 0 auto; }
-    .hero { padding: 4.5rem 0 2rem; }
+    .wrap { width: min(1000px, 82vw); margin: 0 auto; }
+    .hero { padding: 1.35rem 0 0.2rem; }
     .kicker {
       color: var(--blue); font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; font-size: 0.78rem;
     }
@@ -92,13 +116,19 @@
     }
     .cover-card img { width: 100%; height: 280px; object-fit: cover; }
     .cover-card p { margin: 0.8rem 0 0; color: rgba(255,255,255,0.78); }
-    section { padding: 3.2rem 0; }
+    section { padding: 1.15rem 0; }
     .sheet {
       background: var(--white);
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow);
+      border: 2px solid rgba(255,255,255,.92);
+      box-shadow: 0 18px 40px rgba(7, 9, 12, 0.28);
       padding: clamp(1.2rem, 3vw, 2rem);
     }
+    .dark-sheet {
+      background: var(--black); color: white; border-color: rgba(255,255,255,.42);
+    }
+    .dark-sheet .kicker { color: #93c5fd; }
+    .dark-sheet p, .dark-sheet li { color: rgba(255,255,255,.84); }
+    .dark-sheet a { color: #dbe7ff; }
     .duties { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
     .duty { background: white; border-top: 4px solid var(--blue); padding: 1rem 1rem 1.2rem; box-shadow: var(--shadow); }
     .duty span { font-family: "Bebas Neue", sans-serif; color: var(--blue); font-size: 2rem; }
@@ -162,9 +192,7 @@
     }
     .clause { display: grid; grid-template-columns: auto 1fr; gap: 0.8rem; align-items: start; padding: 0.85rem 0; border-bottom: 1px solid var(--line); }
     .clause input { width: 1.25rem; height: 1.25rem; margin-top: 0.25rem; accent-color: var(--blue); }
-    .warranty { background: var(--black); color: white; }
-    .warranty p, .warranty li { color: rgba(255,255,255,0.84); }
-    .warranty a { color: #dbe7ff; }
+    .warranty { background: transparent; color: white; }
     .void { background: #11161f; border-left: 4px solid #60a5fa; padding: 0.2rem 0 0.2rem 1rem; }
     .sign-box { display: grid; gap: 0.5rem; }
     canvas {
@@ -178,9 +206,11 @@
     .media-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 0.6rem; }
     .media-list video, .media-list img { width: 100%; max-height: 180px; object-fit: cover; background: #111; }
     .note { color: var(--muted); font-size: 0.95rem; }
-    footer.foot { background: var(--black); color: rgba(255,255,255,0.75); padding: 2rem 0; }
+    footer.foot { background: transparent; color: rgba(255,255,255,0.75); padding: 0.4rem 0 1.4rem; }
+    footer.foot .wrap { background: var(--black); border: 2px solid rgba(255,255,255,.42); padding: 1.1rem 1.3rem; }
     footer.foot a { color: white; }
     @media (max-width: 900px) {
+      .wrap { width: min(1000px, 90vw); }
       .hero-grid, .duties, .fields { grid-template-columns: 1fr; }
       .top nav { display: none; }
       h1 { font-size: 3.3rem; }
@@ -191,7 +221,7 @@
       html.js .reveal.in { opacity: 1; transform: none; }
     }
     @media print {
-      .progress, .top, .noprint, video, .actions, .drop { display: none !important; }
+      .progress, .top, .noprint, video, .actions, .drop, .levels { display: none !important; }
       body { background: white; }
       .reveal { opacity: 1 !important; transform: none !important; }
       .sheet, .duty, .warranty { box-shadow: none; }
@@ -202,6 +232,16 @@
   </style>
 </head>
 <body>
+  <div class="levels" aria-hidden="true">
+    <div class="level l1"></div>
+    <div class="level l2"></div>
+    <div class="level l3"></div>
+    <div class="level l4"></div>
+    <div class="level l5"></div>
+    <div class="level l6"></div>
+    <div class="level l7"></div>
+    <div class="level l8"></div>
+  </div>
   <a class="skip" href="#sign">Skip to the signature</a>
   <div class="progress" aria-hidden="true"><span id="progress"></span></div>
   <header class="top">
@@ -213,14 +253,14 @@
       <a href="#work">The work</a>
       <a href="#materials">Materials</a>
       <a href="#warranty">Warranty</a>
-      <a href="#sign">Down There</a>
+      <a href="#sign">Sign for work</a>
     </nav>
     <a class="phone" href="tel:+14062239149">(406) 223-9149</a>
   </header>
 
   <main>
     <section class="hero">
-      <div class="wrap hero-grid">
+      <div class="wrap sheet hero-grid">
         <div>
           <p class="kicker">Bozeman, Montana · Job agreement</p>
           <h1>See the job. Then sign for it.</h1>
@@ -240,7 +280,7 @@
     </section>
 
     <section>
-      <div class="wrap">
+      <div class="wrap sheet">
         <p class="kicker">Your side</p>
         <h2>Three things you handle.</h2>
         <div class="duties">
@@ -264,7 +304,7 @@
     </section>
 
     <section id="work">
-      <div class="wrap">
+      <div class="wrap sheet">
         <p class="kicker">The work</p>
         <h2>What you are getting into.</h2>
         <p class="lede">Same system Kraken publishes on the site: diamond grinding, crack repair, moisture testing, an epoxy base, decorative flake to full coverage, and a polyaspartic topcoat. A typical garage is installed in as little as one day. Your proposal holds the schedule for your slab.</p>
@@ -318,8 +358,8 @@
       </section>
 
       <section id="warranty" class="warranty">
-        <div class="wrap">
-          <p class="kicker" style="color:#93c5fd;">Warranty</p>
+        <div class="wrap sheet dark-sheet">
+          <p class="kicker">Warranty</p>
           <h2>What the guarantee depends on.</h2>
           <p>Kraken publishes a lifetime adhesion warranty on this coating. It stays in force when the floor is prepared the way this page describes, and when you contact Kraken inside the notice window if something is wrong.</p>
           <div class="void">
