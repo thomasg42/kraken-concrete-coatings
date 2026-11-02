@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow"><meta name="referrer" content="no-referrer">
+  <title>Owner agreement review | Kraken Concrete Coatings</title>
+  <link rel="icon" href="assets/img/logo.png"><link rel="stylesheet" href="assets/agreement-workflow.css">
+</head>
+<body class="agreement-owner">
+  <header class="owner-header"><strong>Kraken Concrete Coatings</strong><a href="agreement.html">Customer agreement</a></header>
+  <main class="owner-wrap">
+    <p>Owner workspace</p><h1>Review. Agree. Sign.</h1>
+    <p>Read the customer’s request, confirm the arrangements, and send a proposal for their signature. Add yours after they accept that version.</p>
+    <div class="preview-tools" id="previewBanner" hidden><strong>Local preview only</strong><p>Use test details here. Records stay on this computer. The inbox below shows each email step without sending email.</p></div>
+    <p id="ownerStatus" class="owner-status" role="status"></p>
+    <button id="openOwner" type="button" hidden>Open owner preview</button>
+    <form id="ownerLogin" class="owner-form owner-card" hidden>
+      <h2>Owner sign-in</h2>
+      <label>Owner PIN<input id="ownerPin" name="pin" type="password" autocomplete="current-password" required></label>
+      <button type="submit">Sign in</button>
+    </form>
+    <div class="owner-layout" id="ownerWorkspace" hidden>
+      <aside class="owner-card"><h2>Agreements</h2><div id="agreementList" class="owner-list"></div></aside>
+      <section id="ownerDetail" class="owner-card"><h2>Select a request</h2><p>Customer requests appear here when they are submitted.</p></section>
+    </div>
+    <section class="owner-card owner-inbox" id="inboxSection" hidden><h2>Preview email inbox</h2><p>These are local notification records. They have not been sent.</p><div id="outbox"></div></section>
+  </main>
+  <script src="assets/agreement-owner.js"></script>
+</body>
+</html>

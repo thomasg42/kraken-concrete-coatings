@@ -64,8 +64,9 @@
     ]
   }
   </script>
+<link rel="stylesheet" href="assets/photo-polish.css?v=20261029-final-layout">
 </head>
-<body>
+<body class="photo-story-layout">
 
 <header class="nav">
   <div class="nav-inner">
@@ -108,7 +109,7 @@
     </div>
   </section>
 
-  <section>
+  <section class="photo-margin-texture">
     <div class="container">
       <div class="grid-2" style="gap:3rem; align-items:start">
 
@@ -147,14 +148,14 @@
           </div>
           <div class="form-thanks" id="formThanks" hidden>
             <h3>Request Received.</h3>
-            <p>Emmanuel will call you within 60 seconds.</p>
+            <p>Thank you for getting in touch with Kraken.</p>
           </div>
         </div>
 
         <!-- INFO -->
         <div class="reveal">
           <span class="kicker">Reach Us Directly</span>
-          <h2 style="margin-bottom:0.5rem">Talk To A Human</h2>
+          <h2 style="margin-bottom:0.5rem">Talk To The Owner</h2>
           <ul class="contact-info-list">
             <li>
               <span class="label">Phone — Call or Text</span>
@@ -173,14 +174,21 @@
               <span class="val" style="font-size:1.15rem; font-family:var(--font-body); color:var(--ink-dim)">Bozeman, Belgrade, Livingston, Big Sky &amp; surrounding areas</span>
             </li>
           </ul>
-          <iframe class="map-embed" style="margin-top:1.6rem"
-            src="https://www.google.com/maps?q=Bozeman,+MT&z=10&output=embed"
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            title="Map of Bozeman, Montana service area"></iframe>
+
         </div>
 
       </div>
+          <div class="contact-proof-pair">
+            <figure class="contact-project-photo"><picture class="photo-frame" data-photo-motion data-motion="push"><img src="assets/img/golden-hour/5649.webp" srcset="assets/img/golden-hour/5649-small.webp 640w, assets/img/golden-hour/5649.webp 1116w" sizes="(max-width: 800px) 92vw, 46vw" alt="Emmanuel applying coating along the base of a garage wall" loading="lazy" decoding="async" width="1116" height="1488"></picture><figcaption>Emmanuel detailing the floor at a garage baseboard.</figcaption></figure>
+            <div class="contact-map-card">
+              <a class="contact-map-open" href="https://www.google.com/maps/search/?api=1&amp;query=Bozeman%2C%20MT" target="_blank" rel="noopener">Open in Google Maps <span aria-hidden="true">↗</span></a>
+              <iframe class="map-embed"
+                src="https://www.google.com/maps?q=Bozeman,+MT&amp;z=10&amp;output=embed"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                title="Map of Bozeman, Montana service area"></iframe>
+            </div>
+          </div>
     </div>
   </section>
 
@@ -213,6 +221,7 @@
         </ul>
       </div>
     </div>
+    <div class="photo-review-controls"><a href="https://michellephotography56.zenfoliosite.com/kraken-concrete-coatings" target="_blank" rel="noopener">Project photography by Golden Hour Studios</a><button type="button" data-photo-motion-toggle aria-pressed="false">Pause photo motion</button></div>
     <div class="legal">
       <span>© 2026 Kraken Concrete Coatings LLC. All rights reserved.</span>
       <span>Bozeman, MT &amp; surrounding areas</span>
@@ -257,5 +266,6 @@
   });
 })();
 </script>
+<script src="assets/photo-polish.js?v=20261029-original-flow" defer></script>
 </body>
 </html>
