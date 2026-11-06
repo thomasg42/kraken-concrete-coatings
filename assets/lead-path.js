@@ -131,14 +131,81 @@
     return /(?:\?|&)bb_qa=1(?:&|#|$)/.test(String(window.location.href || ''));
   }
 
-  function metaOn() {
+  function metaConfig() {
     var cfg = window.KC_META;
-    return !!(cfg && cfg.enabled === true && cfg.datasetId && typeof window.fbq === 'function');
+    if (!cfg || cfg.enabled !== true || !cfg.datasetId) return null;
+    if (cfg.business && String(cfg.business) !== 'kraken-concrete-coatings') return null;
+    return cfg;
+  }
+
+  function analyticsBlocked() {
+    try {
+      if (navigator.globalPrivacyControl === true) return true;
+      var dnt = navigator.doNotTrack || window.doNotTrack;
+      if (dnt === '1' || dnt === 'yes') return true;
+    } catch (error) { /* preference lookup must not block the quote */ }
+    return false;
+  }
+
+  function queryAllowed() {
+    var query = String(window.location.href || '').split('?')[1] || '';
+    query = query.split('#')[0];
+    if (!query) return true;
+    var allowed = { bb_qa: true, kc_qa: true };
+    ATTR_KEYS.forEach(function (key) { allowed[key] = true; });
+    var ok = true;
+    query.split('&').forEach(function (pair) {
+      if (!pair) return;
+      var cut = pair.indexOf('=');
+      var key = cut >= 0 ? pair.slice(0, cut) : pair;
+      var value = cut >= 0 ? pair.slice(cut + 1) : '';
+      try {
+        key = decodeURIComponent(key.replace(/\+/g, ' '));
+        value = decodeURIComponent(value.replace(/\+/g, ' '));
+      } catch (error) { ok = false; return; }
+      if (!allowed[key] || /phone|email|name/i.test(key) || /@/.test(value)) ok = false;
+    });
+    return ok;
+  }
+
+  function installPixel() {
+    var cfg = metaConfig();
+    if (!cfg || analyticsBlocked() || !queryAllowed()) return false;
+    if (typeof document.createElement !== 'function' || typeof document.getElementsByTagName !== 'function') return false;
+    var pixelId = String(cfg.datasetId || '');
+    if (!/^\d{5,30}$/.test(pixelId)) return false;
+    if (window.__kcPixelId === pixelId) return true;
+    (function (f, b, e, v, n, t, s) {
+      if (f.fbq) return;
+      n = f.fbq = function () { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments); };
+      if (!f._fbq) f._fbq = n;
+      n.push = n;
+      n.loaded = !0;
+      n.version = '2.0';
+      n.queue = [];
+      t = b.createElement(e);
+      t.async = !0;
+      t.src = v;
+      s = b.getElementsByTagName(e)[0];
+      if (s && s.parentNode) s.parentNode.insertBefore(t, s);
+    })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+    try {
+      window.fbq('set', 'autoConfig', false, pixelId);
+      window.fbq('init', pixelId);
+      window.__kcPixelId = pixelId;
+      return true;
+    } catch (error) { return false; }
   }
 
   function track(kind, eventId) {
     try {
-      if (!metaOn()) return false;
+      if (!metaConfig() || analyticsBlocked() || !queryAllowed()) return false;
+      if (kind === 'CallIntent') {
+        var named = document.querySelector ? document.querySelector('[name="fields[name][value]"]') : null;
+        if (isQa(named && named.value)) return false;
+      }
+      installPixel();
+      if (typeof window.fbq !== 'function') return false;
       if (kind === 'Lead') window.fbq('track', 'Lead', {}, { eventID: eventId });
       else window.fbq('trackCustom', 'CallIntent', {}, { eventID: eventId });
       return true;
@@ -185,6 +252,10 @@
     var details = String(data.get(DETAILS) || '');
     var note = 'Lead ID: ' + id + '\n' + sourceLine(attr) + (qa ? '\nQA: exclude from ads' : '');
     if (details.indexOf('Lead ID: ' + id) === -1) data.set(DETAILS, (details ? details.replace(/\s+$/, '') + '\n' : '') + note);
+    data.set('leadId', id);
+    data.set('eventId', id);
+    data.set('qa', qa ? 'true' : 'false');
+    data.set('sourceLine', sourceLine(attr));
     button.disabled = true;
     button.textContent = 'Sending…';
     form.setAttribute('aria-busy', 'true');
