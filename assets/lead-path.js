@@ -120,15 +120,16 @@
 
   function sourceLine(attr) {
     var tags = Object.keys(attr.first || {}).length ? attr.first : (attr.last || {});
-    var parts = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'campaign_id', 'ad_id'].filter(function (key) {
+    var parts = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'utm_id', 'campaign_id', 'adset_id', 'ad_id', 'fbclid'].filter(function (key) {
       return tags[key];
     }).map(function (key) { return key + '=' + tags[key]; });
     return parts.length ? 'Source: ' + parts.join(', ') : 'Source: unknown';
   }
 
   function isQa(name) {
-    if (String(name || '').replace(/\s+/g, ' ').trim().toLowerCase() === 'qa probe') return true;
-    return /(?:\?|&)bb_qa=1(?:&|#|$)/.test(String(window.location.href || ''));
+    var normalized = String(name || '').replace(/\s+/g, ' ').trim().toLowerCase();
+    if (normalized === 'qa probe' || normalized === 'test thomas' || normalized === 'qa probe qa probe') return true;
+    return /(?:\?|&)(?:kc_qa|bb_qa)=1(?:&|#|$)/.test(String(window.location.href || ''));
   }
 
   function metaConfig() {
@@ -222,6 +223,31 @@
     return 'Your request was accepted, but the ' + failed.join(' and ') + ' alert to Emmanuel did not confirm. Please call (406) 223-9149. Reference ' + id + '.';
   }
 
+  function alertsConfirmed(body) {
+    var notify = body && body.notify;
+    if (!notify || typeof notify !== 'object') return false;
+    if (notify.email === false || notify.email === 'failed') return false;
+    if (notify.sms === false || notify.sms === 'failed') return false;
+    return notify.email === 'provider-accepted' || notify.sms === 'provider-accepted';
+  }
+
+  function showHold(title, message) {
+    if (!oops) return;
+    var heading = oops.querySelector('h3');
+    var copy = oops.querySelector('p');
+    if (heading) heading.textContent = title;
+    if (copy) {
+      copy.textContent = message + ' ';
+      var link = document.createElement('a');
+      link.href = 'tel:+14062239149';
+      link.textContent = '(406) 223-9149';
+      copy.appendChild(link);
+      copy.appendChild(document.createTextNode('.'));
+    }
+    oops.hidden = false;
+    if (oops.focus) oops.focus();
+  }
+
   document.addEventListener('click', function (event) {
     var node = event.target;
     while (node) {
@@ -260,33 +286,54 @@
     button.textContent = 'Sending…';
     form.setAttribute('aria-busy', 'true');
     if (oops) oops.hidden = true;
-    return fetch(form.action, { method: 'POST', body: data })
+    var controller = new AbortController();
+    var timer = window.setTimeout(function () { controller.abort(); }, 25000);
+    return fetch(form.action, { method: 'POST', body: data, signal: controller.signal })
       .then(function (response) {
-        if (!response.ok) throw new Error('HTTP ' + response.status);
-        return response.clone().json().catch(function () { return {}; }).then(function (body) { return { response: response, body: body }; });
+        return response.json().catch(function () { return {}; }).then(function (body) {
+          return { ok: response.ok, status: response.status, body: body || {} };
+        });
       })
       .then(function (result) {
-        if (result.body && result.body.ok === false) throw new Error('rejected');
-        if (!qa && result.body && result.body.ok === true && result.body.test !== true) track('Lead', id);
+        var body = result.body || {};
+        if (body.error === 'receipt_busy' || body.status === 'processing') {
+          showHold('Still sending.', 'Your request is still being sent. This does not mean it failed. Your reference is ' + id + '. You can keep this page open or call Emmanuel at');
+          return;
+        }
+        if (body.error === 'receipt_unknown' || body.status === 'unknown') {
+          showHold('Not confirmed.', 'We could not confirm whether Kraken received this request. Your reference is ' + id + '. Calling Emmanuel is the sure way to reach him. Sending again will not create another notice while this one is unresolved. Call');
+          return;
+        }
+        if (!result.ok || body.ok === false || body.status === 'rejected') throw new Error('rejected');
+        if (body.ok !== true) throw new Error('unconfirmed');
+        if (!qa && body.test !== true) track('Lead', id);
         if (warning) {
-          var problem = deliveryNote(result.body, id);
+          var problem = deliveryNote(body, id);
           warning.hidden = !problem;
           warning.textContent = problem;
         }
-        clearLeadId();
+        if (alertsConfirmed(body)) clearLeadId();
         form.hidden = true;
         thanks.hidden = false;
         if (thanks.focus) thanks.setAttribute('tabindex', '-1');
         if (thanks.focus) thanks.focus();
       })
-      .catch(function () {
+      .catch(function (error) {
+        if (error && error.name === 'AbortError') {
+          showHold('Not confirmed.', 'The page stopped waiting, so the result is unknown. Your details are still here. Reference ' + id + '. Call Emmanuel at');
+          return;
+        }
+        if (error && error.message === 'rejected') {
+          showHold('That Didn\'t Send.', 'Something went wrong on our end. Your details are still in the form, so you can try again. If it keeps failing, call Emmanuel at');
+          return;
+        }
+        showHold('Not confirmed.', 'The page did not get a confirmed result, so the outcome is unknown. Your details are still here. Reference ' + id + '. Call Emmanuel at');
+      })
+      .then(function () {
+        window.clearTimeout(timer);
         button.disabled = false;
         button.textContent = label;
         form.setAttribute('aria-busy', 'false');
-        if (oops) {
-          oops.hidden = false;
-          if (oops.focus) oops.focus();
-        }
       });
   });
 })();
