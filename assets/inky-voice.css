@@ -1,0 +1,7 @@
+/* Inky, the Kraken voice assistant. Sits under the menu (100) and the photo lightbox (200). */
+elevenlabs-convai {
+  z-index: 90;
+}
+@media print {
+  elevenlabs-convai { display: none !important; }
+}
